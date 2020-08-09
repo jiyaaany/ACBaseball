@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
+    <title>sign up!</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- CSS here -->
+    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/owl.carousel.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/magnific-popup.css" %}'>
+    <link rel="stylesheet" href='{% static "css/font-awesome.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/themify-icons.css" %}'>
+    <link rel="stylesheet" href='{% static "css/nice-select.css" %}'>
+    <link rel="stylesheet" href='{% static "css/flaticon.css" %}'>
+    <link rel="stylesheet" href='{% static "css/animate.css" %}'>
+    <link rel="stylesheet" href='{% static "css/slicknav.css" %}'>
+    <link rel="stylesheet" href='{% static "css/style.css" %}'>
+
+    <script>
+        $('#btn-chkID').click(function(){
+            alert('chkid');
+			var id = $('.user_id').val()
+			if(id == ''){
+				alert('ID를 입력해주세요.')
+				return;
+			}
+
+			$.ajax({
+				url:'/user/api/chkid?user_id='+id,
+				type:'get',
+				dataType:'json',
+				success:function(response){
+					if(response.result != 'success'){
+						console.error(response.data)
+						return;
+					}
+					if(response.data == 'exist'){
+						alert("존재하는 ID 입니다.");
+						$('.user_id').val('').focus();
+						return;
+					}else{
+						alert('사용가능한 ID 입니다.')
+						return;
+					}
+					// console.log(response)
+				},
+                error : function(xhr, error){
+					alert("서버와의 통신에서 문제가 발생했습니다.");
+					console.error("error : " + error);
+				}
+			})
+		});
+    </script>
+</head>
+
+<body>
+    {% block content %}
+    <div class="content_area">
+        <div class="container">
+            <h1 class="signin-header">회원가입</h1>
+            <form method="POST" action="{%url 'accounts:create'%}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="name" class="signin-control" placeholder="이름" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="user_id" class="signin-control-inline" placeholder="ID" required>
+                    <!-- <button id="btn-chkID" class="btn btn-primary">중복확인</button> -->
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password1" class="signin-control" placeholder="암호" required>
+                </div>
+                <!-- <div class="form-group">
+                    <input type="password" name="password2" class="signin-control" placeholder="암호 확인" required>
+                </div> -->
+                <div class="form-group">
+                    <input type="text" name="email" class="signin-control" placeholder="e-mail" required>
+                </div>
+                <button type="submit" class="btn btn-primary">회원가입</button>
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
