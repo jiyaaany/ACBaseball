@@ -52,7 +52,7 @@
                                         </li>
                                         <li><a href="#">대관<i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
-                                                <li><a href="{% url 'schedule:schedule_form' %}">대관하기</a></li>
+                                                <li><a href="{% url 'schedule:form' %}">대관하기</a></li>
                                                 <li><a href="{% url 'schedule:show_schedule' %}">대관 현황</a></li>
                                             </ul>
                                         </li>
@@ -72,11 +72,11 @@
                                 <div class="socail_links">
                                     <ul>
                                         {% if user.is_superuser %}
-                                        <li><a href="{% url 'member:manage_member' %}">회원관리</a></li>
+                                        <li><a href="{% url 'index' %}">회원관리</a></li>
                                         {% endif %}
                                         {% if user.is_authenticated %}
-                                        <li><a href="{% url 'member:buy_ticket' %}">이용권 구매</a></li>
-                                        <li><a href="{% url 'create_post' %}">글 작성하기</a></li>
+                                        <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
+                                        <li><a href="{% url 'index' %}">글 작성하기</a></li>
                                         <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
                                         {% else %}
                                         <li>

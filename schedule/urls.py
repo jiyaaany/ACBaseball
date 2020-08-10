@@ -3,7 +3,11 @@ from . import views
 
 app_name = 'schedule'
 urlpatterns = [
-    path('', views.show_schedule, name='show_schedule'),
+    path('', views.list, name='list'),
+    path('form/', views.form, name='form'),
+    path('list/', views.list, name='list'),
+    path('exam/', views.IndexView.as_view(), name='exam'),
+    path('create/', views.create, name='create'),
     path('show_schedule/', views.show_schedule, name='show_schedule'),
     path('book_schedule/', views.book_schedule, name='book_schedule'),
     path('schedule_form/', views.schedule_form, name='schedule_form'),
