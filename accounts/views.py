@@ -59,12 +59,12 @@ class CreateView(View):
             # 5.Users 저장을 해준다
             # 6.기본적으로 data에 담긴 값을 저장하고, password의 경우 암호화 된 hashed_password를 넣어준다
   
-            # Users( 
-            #     user_id     = request.POST["user_id"],
-            #     name    = request.POST["name"],
-            #     email    = request.POST["email"],
-            #     password = hashed_password.decode('utf=8')
-            # ).save()
+            Users( 
+                user_id     = request.POST["user_id"],
+                name    = request.POST["name"],
+                email    = request.POST["email"],
+                password = hashed_password.decode('utf=8')
+            ).save()
 
             #7.성공적으로 저장이 되었으면 성공 메시지를 보낸다.  
             # return JsonResponse({'message':'회원가입 성공'}, status=200)

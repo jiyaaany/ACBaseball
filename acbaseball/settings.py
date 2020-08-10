@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'accounts',
     'index',
     'cafe',
-    'schedule'
+    'schedule',
+    'ticket',
+    'lesson',
 ]
 
 MIDDLEWARE = [
