@@ -8,7 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
-    <title>ticketForm</title>
+    <title>lessonForm</title>
     <script type="text/javascript" src="../../static/js/service/HuskyEZCreator.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
@@ -31,21 +31,8 @@
     <div class="content_area">
         <div class="container">
             <form method="GET" action="{% url 'ticket:create' %}">
-                <h1 class="signin-header">이용권 구매</h1>
-                <select class="selectpicker" name="ticket">
-                    <optgroup label="월 자유이용">
-                        <option value="month1">1개월</option>
-                        <option value="month3">3개월</option>
-                        <option value="month6">6개월</option>
-                    </optgroup>
-                    <optgroup label="쿠폰">
-                        <option value="coupon4">4회(1개월)</option>
-                        <option value="coupon8">8회(1개월)</option>
-                        <option value="coupon20">20회</option>
-                    </optgroup>
-                </select>
-                <button type="submit" class="btn btn-margin btn-primary">구매 신청</button>
-            </form>
+                <h1 class="signin-header">레슨 신청</h1>
+                
         </div>
     </div>
     {% endblock %}

@@ -1,0 +1,17 @@
+asgiref==3.2.10
+bcrypt==3.1.7
+cffi==1.14.1
+cryptography==2.9.2
+Django==2.0.13
+djangorestframework==3.11.1
+djangorestframework-jwt==1.11.0
+ez-setup==0.9
+jwt==1.0.0
+mysqlclient==2.0.1
+pycparser==2.20
+PyJWT==1.7.1
+PyMySQL==0.10.0
+python-dateutil==2.8.1
+pytz==2020.1
+six==1.15.0
+sqlparse==0.3.1
