@@ -63,7 +63,8 @@
                                     <div class="socail_links">
                                         <ul>
                                             {% if user.is_superuser %}
-                                            <li><a href="{% url 'accounts:list' %}">회원관리</a></li>
+                                                <li><a href="{% url 'accounts:list' %}">회원관리</a></li>
+                                                <li><a href="{% url 'ticket:list' %}">이용권 구매현황</a></li>
                                             {% endif %}
                                             {% if user.is_authenticated %}
                                                 {% if user.is_superuser == False %}

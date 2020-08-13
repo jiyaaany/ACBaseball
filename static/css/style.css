@@ -6304,6 +6304,9 @@ h6 {
   text-align: start;
 }
 
+.header-inline {
+  display: inline;
+}
 /* jiyeon */
 
 /*# sourceMappingURL=style.css.map */
