@@ -3,6 +3,6 @@ from . import views
 
 app_name = 'lesson'
 urlpatterns = [
-    
+    path('form/', views.form, name='form'),
     
 ]

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
+    <title>ticketSuccess</title>
+    <script type="text/javascript" src="../../static/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- CSS here -->
+    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/owl.carousel.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/magnific-popup.css" %}'>
+    <link rel="stylesheet" href='{% static "css/font-awesome.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/themify-icons.css" %}'>
+    <link rel="stylesheet" href='{% static "css/nice-select.css" %}'>
+    <link rel="stylesheet" href='{% static "css/flaticon.css" %}'>
+    <link rel="stylesheet" href='{% static "css/animate.css" %}'>
+    <link rel="stylesheet" href='{% static "css/slicknav.css" %}'>
+    <link rel="stylesheet" href='{% static "css/style.css" %}'>
+</head>
+
+<body>
+    {% block content %}
+    <div class="content_area">
+        <div class="container">
+            <h1 class="signin-header">이용권 신청현황</h1>
+            
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">이용권 종류</th>
+                    <th scope="col">신청 일자</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ticket in tickets %}
+                  <tr>
+                    <th scope="row">{{ticket.id}}</th>
+                    <td>{{ticket.user_id}}</td>
+                    <td>{{ticket.ticket_type}}</td>
+                    <td>{{ticket.created_date}}</td>
+                    <td>
+                      <a href="{% url 'ticket:update' ticket.id %}"><button id="btn_accept" class="btn btn-primary">수락</button></a>
+                      <a href="{% url 'ticket:delete' ticket.id %}"><button id="btn_reject" class="btn btn-primary">거절</button></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
