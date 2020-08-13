@@ -3,5 +3,4 @@
 __pycache__
 ACvenv
 db.sqlite3
-/static
 .DS_Store

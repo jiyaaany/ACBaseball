@@ -33,7 +33,7 @@
             <form method="GET" action="{% url 'ticket:create' %}">
                 <h1 class="signin-header">이용권 구매</h1>
                 <select class="selectpicker" name="ticket">
-                    <optgroup label="월 자유이용">
+                    <!-- <optgroup label="월 자유이용">
                         <option value="month1">1개월</option>
                         <option value="month3">3개월</option>
                         <option value="month6">6개월</option>
@@ -42,10 +42,22 @@
                         <option value="coupon4">4회(1개월)</option>
                         <option value="coupon8">8회(1개월)</option>
                         <option value="coupon20">20회</option>
+                    </optgroup> -->
+                    <optgroup label="쿠폰">
+                        <option value="coupon4">10장 (2개월)</option>
+                        <option value="coupon8">20장 (3개월)</option>
+                        <option value="coupon20">30장 (6개월)</option>
+                        <option value="coupon8">50장 (10개월)</option>
+                        <option value="coupon20">100장 (12개월)</option>
                     </optgroup>
                 </select>
+                
                 <button type="submit" class="btn btn-margin btn-primary">구매 신청</button>
+                <label for="">결제일이 아닌 레슨 시작일 부터 소진됩니다.</label>
+                <br>
+                <label for="">기간 만료 시 자동 소진</label>
             </form>
+            
         </div>
     </div>
     {% endblock %}

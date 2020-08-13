@@ -29,7 +29,12 @@
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a class="active" href="{% url 'index' %}">home</a></li>
+                                            <li><a href="">이용안내<i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="#">레슨 사진</a></li>
+                                                    <li><a href="#">레슨 영상</a></li>
+                                                </ul>
+                                            </li>
                                             <li><a href="#">레슨<i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="{% url 'cafe:baseball_photo' %}">레슨 사진</a></li>
