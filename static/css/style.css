@@ -2843,9 +2843,7 @@ h3 {
   padding: 120px 0 115px 0;
 }
 
-.content_area{
-  padding: 120px 0 115px 0;
-}
+
 
 @media (max-width: 767px) {
   /* line 2, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_testmonial.scss */
@@ -6279,5 +6277,33 @@ h6 {
   margin-right: 10px;
   font-size: 12px;
 }
+
+
+
+/* jiyeon */
+
+.content_area{
+  overflow: hidden;
+  height: auto;
+  /* border: 1px solid black; */
+  padding: 120px 0 115px 0;
+}
+
+.div-inline {
+  /* border : 1px solid black; */
+  float: left;
+  padding-right: 10%;
+  text-align: center;
+}
+
+.p-highlight {
+  padding-top: 5%;
+  clear: both;
+  color: red;
+  font-weight: bold;
+  text-align: start;
+}
+
+/* jiyeon */
 
 /*# sourceMappingURL=style.css.map */

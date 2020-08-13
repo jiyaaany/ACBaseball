@@ -1,19 +1,25 @@
 from django.shortcuts import render
 from .models import Ticket
-from accounts.models import Users
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 def form(request):
     return render(request, 'ticketForm.html')
 
 def create(request):
-    user = Users.objects.get(user_id="jiyaaany")
+    User = get_user_model()
+    user = User.objects.get(user_id=request.user)
     Ticket(
-        ticket_type=request.GET['ticket'],
+        ticket_type=request.get['ticket'],
         user=user
     ).save()
+    # user = Users.objects.get(user_id="jiyaaany")
+    # Ticket(
+    #     ticket_type=request.GET['ticket'],
+    #     user=user
+    # ).save()
     return render(request, 'ticketsuccess.html')
 
 def update(request, id):
