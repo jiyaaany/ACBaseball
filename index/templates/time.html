@@ -8,7 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
-    <title>sign up!</title>
+    <title>레슨 시간</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- CSS here -->
     <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
@@ -21,30 +21,35 @@
     <link rel="stylesheet" href='{% static "css/animate.css" %}'>
     <link rel="stylesheet" href='{% static "css/slicknav.css" %}'>
     <link rel="stylesheet" href='{% static "css/style.css" %}'>
+
 </head>
 
 <body>
     {% block content %}
     <div class="content_area">
         <div class="container">
-            <h1 class="signin-header">회원가입</h1>
-            <form method="POST" action="{%url 'accounts:create'%}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" name="first_name" class="signin-control" placeholder="이름" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="username" class="signin-control-inline" placeholder="ID" required>
-                    <!-- <button id="btn-chkID" class="btn btn-primary">중복확인</button> -->
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" class="signin-control" placeholder="암호" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="email" class="signin-control" placeholder="e-mail" required>
-                </div>
-                <button type="submit" class="btn btn-primary">회원가입</button>
-            </form>
+            <h1 class="signin-header">레슨 시간</h1>
+            <div class="div-inline">
+                <h3> ⚾️ 개인 레슨 (1시간) ⚾️ </h3><br>
+                <label for="">개인 레슨은 월~일 가능합니다.</label>
+                <h5>오전 7:00 ~ 8:00</h5>
+                <h5>오전 8:00 ~ 9:00 </h5>
+                <h5>오전 9:00 ~ 10:00 </h5>
+                <h5>오전 10:00 ~ 11:00 </h5>
+                <h5>오전 11:00 ~ 12:00 </h5>
+                <h5>오후 12:00 ~ 13:00 </h5>
+                <h5>오후 13:00 ~ 14:00 </h5>
+                <h5>오후 14:00 ~ 15:00 </h5>
+                <h5>오후 15:00 ~ 16:00 </h5>
+                <h5>오후 16:00 ~ 17:00 </h5>
+                <h5>오후 17:00 ~ 18:00 </h5>
+            </div>
+            <div class="div-inline">
+                <h3> ⚾️ 그룹 레슨 (1시간 30분) ⚾️ </h3><br>
+                <label for="">그룹 레슨은 월~금(평일) 가능합니다.</label>
+                <h5>오후 19:30 ~ 21:00 </h5>
+                <h5>오후 21:10 ~ 22:40 </h5>
+            </div>
         </div>
     </div>
     {% endblock %}

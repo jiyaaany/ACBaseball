@@ -11,15 +11,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='users',
-            name='id',
-            field=models.AutoField(auto_created=True, default=django.utils.timezone.now, primary_key=True, serialize=False, verbose_name='ID'),
-            preserve_default=False,
-        ),
-        migrations.AlterField(
-            model_name='users',
-            name='user_id',
-            field=models.CharField(max_length=128, unique=True),
-        ),
+        # migrations.AddField(
+        #     model_name='users',
+        #     name='id',
+        #     field=models.AutoField(auto_created=True, default=django.utils.timezone.now, primary_key=True, serialize=False, verbose_name='ID'),
+        #     preserve_default=False,
+        # ),
+        # migrations.AlterField(
+        #     model_name='users',
+        #     name='user_id',
+        #     field=models.CharField(max_length=128, unique=True),
+        # ),
     ]

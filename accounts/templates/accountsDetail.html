@@ -8,7 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
-    <title>sign up!</title>
+    <title>회원 상세페이지</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- CSS here -->
     <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
@@ -27,24 +27,12 @@
     {% block content %}
     <div class="content_area">
         <div class="container">
-            <h1 class="signin-header">회원가입</h1>
-            <form method="POST" action="{%url 'accounts:create'%}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" name="first_name" class="signin-control" placeholder="이름" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="username" class="signin-control-inline" placeholder="ID" required>
-                    <!-- <button id="btn-chkID" class="btn btn-primary">중복확인</button> -->
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" class="signin-control" placeholder="암호" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="email" class="signin-control" placeholder="e-mail" required>
-                </div>
-                <button type="submit" class="btn btn-primary">회원가입</button>
-            </form>
+            {% if user.is_superuser %}
+                <h1 class="signin-header">회원 상세페이지</h1>
+            {% else %}
+                <h1 class="signin-header">My 페이지</h1>
+            {% endif %}
+            
         </div>
     </div>
     {% endblock %}

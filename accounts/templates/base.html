@@ -29,10 +29,10 @@
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="">이용안내<i class="ti-angle-down"></i></a>
+                                            <li><a href="#">이용안내<i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                    <li><a href="#">레슨 사진</a></li>
-                                                    <li><a href="#">레슨 영상</a></li>
+                                                    <li><a href="{% url 'time' %}">레슨 시간</a></li>
+                                                    <li><a href="{% url 'fare' %}">레슨 요금</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="#">레슨<i class="ti-angle-down"></i></a>
@@ -41,12 +41,12 @@
                                                     <li><a href="{% url 'cafe:baseball_movie' %}">레슨 영상</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">대관<i class="ti-angle-down"></i></a>
+                                            <!-- <li><a href="#">대관<i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="{% url 'schedule:form' %}">대관하기</a></li>
                                                     <li><a href="{% url 'schedule:show_schedule' %}">대관 현황</a></li>
                                                 </ul>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </nav>
                                 </div>
@@ -63,13 +63,16 @@
                                     <div class="socail_links">
                                         <ul>
                                             {% if user.is_superuser %}
-                                            <li><a href="{% url 'index' %}">회원관리</a></li>
+                                            <li><a href="{% url 'accounts:list' %}">회원관리</a></li>
                                             {% endif %}
                                             {% if user.is_authenticated %}
-                                            <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
-                                            <!-- <li><a href="{% url 'index' %}">글 작성하기</a></li> -->
-                                            <li><a href="{% url 'lesson:form' %}">레슨 신청</a></li>
-                                            <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
+                                                {% if user.is_superuser == False %}
+                                                <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
+                                                <!-- <li><a href="{% url 'index' %}">글 작성하기</a></li> -->
+                                                <li><a href="{% url 'lesson:form' %}">레슨 신청</a></li>
+                                                {% else %}
+                                                <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
+                                                {% endif %}
                                             {% else %}
                                             <li>
                                                 <a href="{% url 'accounts:signup' %}">
@@ -82,7 +85,6 @@
                                                 </a>
                                             </li>
                                             {% endif %}
-                                            
                                             <li>
                                                 <a href="https://www.instagram.com/journey00_/">
                                                     <i class="fa fa-instagram"></i>

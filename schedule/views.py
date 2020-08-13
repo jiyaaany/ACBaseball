@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 from .models import Schedule
-from accounts.models import Users
+# from accounts.models import Users
 import datetime
 
 # Create your views here.
@@ -14,9 +14,9 @@ def list(request):
 def create(request):
     print('create')
     print(type(request.POST['schedule_name']))
-    user_id = Users.objects.get(user_id='jiyaaany')
+    # user_id = Users.objects.get(user_id='jiyaaany')
 
-    print(user_id)
+    # print(user_id)
     try:
         Schedule(
             shedule_name = request.POST['schedule_name'],
