@@ -32,7 +32,27 @@
             {% else %}
                 <h1 class="signin-header">My 페이지</h1>
             {% endif %}
-            
+            <strong>{{user.first_name}}</strong> 님의 이용권 현황
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">잔여 횟수</th>
+                    <th scope="col">시작일</th>
+                    <th scope="col">만료일</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ticket in tickets %}  
+                  <tr>
+                    <th scope="row">{{ ticket.id }}</th>
+                    <td>{{ ticket.coupon }}</td>
+                    <td>{{ ticket.started_date }}</td>
+                    <td>{{ ticket.expired_date }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>            
         </div>
     </div>
     {% endblock %}

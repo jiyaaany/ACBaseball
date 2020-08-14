@@ -6304,6 +6304,12 @@ h6 {
   text-align: start;
 }
 
+.p-red {
+  color: red;
+}
+.header-inline {
+  display: inline;
+}
 /* jiyeon */
 
 /*# sourceMappingURL=style.css.map */

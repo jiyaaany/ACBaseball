@@ -3,7 +3,7 @@ import json
 from django.views import View
 from django.http  import JsonResponse,HttpResponse
 # from .models      import Users
-import bcrypt
+import bcrypt, datetime
 import jwt
 from acbaseball.settings import SECRET_KEY
 from django.contrib import auth
@@ -52,6 +52,10 @@ def list(request):
 
 def detail(request, id):
     user = User.objects.get(id=id)
+    tickets = Ticket.objects.filter(user_id=id, is_use=True, coupon__gt=0, expired_date__gt=datetime.datetime.now(), started_date__lt=datetime.datetime.now())
     # ticket = Ticket.objects.get(id=)
-    context = {'user': user}
-    return render(request, 'accountsDetail.html')
+    context = {
+        'user': user,
+        'tickets': tickets,
+    }
+    return render(request, 'accountsDetail.html', context)

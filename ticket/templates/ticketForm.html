@@ -23,15 +23,34 @@
     <link rel="stylesheet" href='{% static "css/animate.css" %}'>
     <link rel="stylesheet" href='{% static "css/slicknav.css" %}'>
     <link rel="stylesheet" href='{% static "css/style.css" %}'>
+    
 </head>
 
 <body>
-    
     {% block content %}    
     <div class="content_area">
         <div class="container">
             <form method="GET" action="{% url 'ticket:create' %}">
                 <h1 class="signin-header">이용권 구매</h1>
+                {% if messages %}
+                    <div class="messages">
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="alert alert-{{message.tags}}"{% endif %}>
+                            {{message.message}}
+                        </div>
+                    {% endfor %}
+                    </div>  
+                {% endif %}
+                <p>
+                    <label for="">엘리트 선수 레슨은 전화 문의 부탁드립니다. (010-3505-0076)</label>
+                </p>
+                <label for=""></label>
+                <select class="selectpicker" name="ticket_lesson">
+                    <optgroup label="개인/그룹">
+                        <option value="person">개인</option>
+                        <option value="group">그룹</option>
+                    </optgroup>
+                </select>
                 <select class="selectpicker" name="ticket">
                     <!-- <optgroup label="월 자유이용">
                         <option value="month1">1개월</option>
@@ -44,20 +63,23 @@
                         <option value="coupon20">20회</option>
                     </optgroup> -->
                     <optgroup label="쿠폰">
-                        <option value="coupon10">10장 (2개월)</option>
-                        <option value="coupon20">20장 (3개월)</option>
-                        <option value="coupon30">30장 (6개월)</option>
-                        <option value="coupon50">50장 (10개월)</option>
-                        <option value="coupon100">100장 (12개월)</option>
+                        <option value="coupon10">10회 (2개월)</option>
+                        <option value="coupon20">20회 (3개월)</option>
+                        <option value="coupon30">30회 (6개월)</option>
+                        <option value="coupon50">50회 (10개월)</option>
+                        <option value="coupon100">100회 (12개월)</option>
                     </optgroup>
                 </select>
                 
                 <button type="submit" class="btn btn-margin btn-primary">구매 신청</button>
-                <label for="">결제일이 아닌 레슨 시작일 부터 소진됩니다.</label>
-                <br>
-                <label for="">기간 만료 시 자동 소진</label>
+                
+                
+                <p class="p-highlight">
+                    괄호 안의 개월 수는 쿠폰 유효기간으로 쿠폰 구입일이 아닌 첫 레슨 시작일부터 입니다. <br>
+                    기간 만료 시 자동 소진됩니다.
+                </p>
+
             </form>
-            
         </div>
     </div>
     {% endblock %}

@@ -10,16 +10,12 @@ def form(request):
 
 def create(request):
     User = get_user_model()
-    user = User.objects.get(user_id=request.user)
+    user = User.objects.get(username=request.user)
     Ticket(
-        ticket_type=request.get['ticket'],
-        user=user
+        ticket_lesson=request.GET['ticket_lesson'],
+        ticket_type=request.GET['ticket'],
+        user_id=user.id
     ).save()
-    # user = Users.objects.get(user_id="jiyaaany")
-    # Ticket(
-    #     ticket_type=request.GET['ticket'],
-    #     user=user
-    # ).save()
     return render(request, 'ticketsuccess.html')
 
 def update(request, id):
@@ -30,7 +26,7 @@ def update(request, id):
     if ticket.ticket_type.find('month') > -1:
         ticket.expired_date = datetime.now() + relativedelta(months=ticket.ticket_type.split('month')[1])
     elif ticket.ticket_type.find('coupon') > -1:
-        ticket.coupon = ticket.coupon + int(ticket.ticket_type.split('coupon')[1])
+        ticket.coupon = int(ticket.ticket_type.split('coupon')[1])
         ticket.expired_date = datetime.now() + relativedelta(months=2)
 
     ticket.save()
@@ -56,10 +52,16 @@ def delete(request, id):
     return render(request, 'ticketList.html', context)
 
 def list(request):
-    tickets = Ticket.objects.all()
-    tickets = tickets.filter(is_use=False, started_date=None, expired_date=None)
-    tickets = tickets.order_by('id')
-    context = {'tickets': tickets}
+    # tickets = Ticket.objects.all()
+    # tickets = tickets.filter(is_use=False, started_date=None, expired_date=None)
+    # tickets = tickets.order_by('id')
+    User = get_user_model()
+    # print(Ticket.objects.prefetch_related('auth_user__id'))
+    tickets = Ticket.objects.filter(is_use=False, started_date=None, expired_date=None).order_by('id')
+    # .select_related(User)
 
-    context = {'tickets': tickets}
+    print(tickets)
+    context = {
+        'tickets': tickets
+    }
     return render(request, 'ticketList.html', context)
