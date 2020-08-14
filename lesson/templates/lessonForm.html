@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <html class="no-js" lang="zxx">
 
 <head>
@@ -9,9 +13,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
     <title>lessonForm</title>
-    <script type="text/javascript" src="../../static/js/service/HuskyEZCreator.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <!-- <script src="js/main-script.js"></script> -->
+    <script src="{% static 'js/main-script.js' %}"></script>
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <!-- <script src="js/vendor/jquery-1.12.4.min.js"></script> -->
+    
     <!-- CSS here -->
     <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
     <link rel="stylesheet" href='{% static "css/owl.carousel.min.css" %}'>
@@ -23,6 +30,71 @@
     <link rel="stylesheet" href='{% static "css/animate.css" %}'>
     <link rel="stylesheet" href='{% static "css/slicknav.css" %}'>
     <link rel="stylesheet" href='{% static "css/style.css" %}'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <style>
+
+        body {
+            margin-bottom: 40px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            background:url(http://www.digiphotohub.com/wp-content/uploads/2015/09/bigstock-Abstract-Blurred-Background-Of-92820527.jpg);
+            }
+            
+        #wrap {
+            width: 1100px;
+            margin: 0 auto;
+            border: 1px solid black;
+            }
+            
+        #external-events {
+            float: left;
+            width: 150px;
+            padding: 0 10px;
+            text-align: left;
+            }
+            
+        #external-events h4 {
+            font-size: 16px;
+            margin-top: 0;
+            padding-top: 1em;
+            }
+            
+        .external-event { /* try to mimick the look of a real event */
+            margin: 10px 0;
+            padding: 2px 4px;
+            background: #3366CC;
+            color: #fff;
+            font-size: .85em;
+            cursor: pointer;
+            }
+            
+        #external-events p {
+            margin: 1.5em 0;
+            font-size: 11px;
+            color: #666;
+            }
+            
+        #external-events p input {
+            margin: 0;
+            vertical-align: middle;
+            }
+    
+        #calendar {
+    /* 		float: right; */
+            margin: 0 auto;
+            width: 900px;
+            background-color: #FFFFFF;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px #C3C3C3;
+            -webkit-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+            -moz-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+            box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+            background-color: #3366CC;
+            }
+    
+    </style>
 </head>
 
 <body>
@@ -30,9 +102,12 @@
     {% block content %}    
     <div class="content_area">
         <div class="container">
-            <form method="GET" action="{% url 'ticket:create' %}">
+            <!-- <form method="GET" action="{% url 'ticket:create' %}"> -->
                 <h1 class="signin-header">레슨 신청</h1>
+                <div id='wrap'></div>
+                <div id='calendar'></div>
                 
+                <div style='clear:both'></div>
         </div>
     </div>
     {% endblock %}

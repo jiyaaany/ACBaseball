@@ -12,6 +12,7 @@ def create(request):
     User = get_user_model()
     user = User.objects.get(username=request.user)
     Ticket(
+        ticket_lesson=request.GET['ticket_lesson'],
         ticket_type=request.GET['ticket'],
         user_id=user.id
     ).save()
@@ -25,7 +26,7 @@ def update(request, id):
     if ticket.ticket_type.find('month') > -1:
         ticket.expired_date = datetime.now() + relativedelta(months=ticket.ticket_type.split('month')[1])
     elif ticket.ticket_type.find('coupon') > -1:
-        ticket.coupon = ticket.coupon + int(ticket.ticket_type.split('coupon')[1])
+        ticket.coupon = int(ticket.ticket_type.split('coupon')[1])
         ticket.expired_date = datetime.now() + relativedelta(months=2)
 
     ticket.save()
