@@ -6310,6 +6310,13 @@ h6 {
 .header-inline {
   display: inline;
 }
+
+.lesson-div-inline {
+  float: left;
+  padding-right: 10px;
+  vertical-align: middle;
+}
+
 /* jiyeon */
 
 /*# sourceMappingURL=style.css.map */

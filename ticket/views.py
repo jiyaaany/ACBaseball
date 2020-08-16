@@ -12,7 +12,7 @@ def create(request):
     User = get_user_model()
     user = User.objects.get(username=request.user)
     Ticket(
-        ticket_lesson=request.GET['ticket_lesson'],
+        lesson_type=request.GET['lesson_type'],
         ticket_type=request.GET['ticket'],
         user_id=user.id
     ).save()
