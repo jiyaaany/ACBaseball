@@ -8,8 +8,8 @@ class Ticket(models.Model):
     ticket_type = models.CharField(max_length = 50)
     is_use = models.BooleanField(default=False, blank=False)
     coupon = models.IntegerField(default=0, blank=False)
-    started_date = models.DateTimeField()
-    expired_date = models.DateTimeField()
+    started_date = models.DateTimeField(null=True)
+    expired_date = models.DateTimeField(null=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
