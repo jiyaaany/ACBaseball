@@ -13,7 +13,7 @@ def form(request):
     user = user_model.objects.get(username=request.user)
     if request.method == 'POST':
         try:
-            ticket = Ticket.objects.get(user_id=user.id, lesson_type=request.POST['lesson_type'])
+            ticket = Ticket.objects.get(user_id=user.id, lesson_type=request.POST['lesson_type'], is_use=1)
             param = {'lesson_type':request.POST['lesson_type'], 'date':request.POST['date'], 'time':request.POST['time']}
             lesson_info = Lesson_info.objects.filter(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"), time=request.POST['time'])
             context = {
@@ -26,7 +26,7 @@ def form(request):
             return render(request, 'ticketForm.html')        
     else:
         try:
-            ticket = Ticket.objects.get(user_id=user.id)
+            ticket = Ticket.objects.get(user_id=user.id, is_use=1)
             return render(request, 'lessonForm.html')
         except Ticket.DoesNotExist:
             messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')

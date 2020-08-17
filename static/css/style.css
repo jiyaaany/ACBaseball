@@ -6314,6 +6314,13 @@ h6 {
 .lesson-div-inline {
   float: left;
   padding-right: 10px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.lesson-button-inline {
+  float: left;
+  width : 100px;
+  padding-right: 10px;
   vertical-align: middle;
   margin-right: 10px;
 }
