@@ -74,8 +74,8 @@
                                                 <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
                                                 <!-- <li><a href="{% url 'index' %}">글 작성하기</a></li> -->
                                                 <li><a href="{% url 'lesson:form' %}">레슨 신청</a></li>
-                                                <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
                                             {% endif %}
+                                            <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
                                         {% else %}
                                         <li>
                                             <a href="{% url 'accounts:signup' %}">

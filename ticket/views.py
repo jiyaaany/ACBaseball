@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Ticket
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -19,49 +19,54 @@ def create(request):
     return render(request, 'ticketsuccess.html')
 
 def update(request, id):
-    ticket = Ticket.objects.get(id=id)
-    ticket.is_use = True
-    ticket.started_date = datetime.now()
-    
-    if ticket.ticket_type.find('month') > -1:
-        ticket.expired_date = datetime.now() + relativedelta(months=ticket.ticket_type.split('month')[1])
-    elif ticket.ticket_type.find('coupon') > -1:
+    if request.user.is_superuser:
+        ticket = Ticket.objects.get(id=id)
+        ticket.is_use = True
+        # ticket.started_date = datetime.now()
         ticket.coupon = int(ticket.ticket_type.split('coupon')[1])
-        ticket.expired_date = datetime.now() + relativedelta(months=2)
+        # if ticket.ticket_type.find('month') > -1:
+            # ticket.expired_date = datetime.now() + relativedelta(months=ticket.ticket_type.split('month')[1])
+        # elif ticket.ticket_type.find('coupon') > -1:
+            # ticket.coupon = int(ticket.ticket_type.split('coupon')[1])
+            # ticket.expired_date = datetime.now() + relativedelta(months=2)
 
-    ticket.save()
-
-    tickets = Ticket.objects.all()
-    tickets = tickets.filter(is_use=False, started_date=None, expired_date=None)
-    tickets = tickets.order_by('id')
-    context = {'tickets': tickets}
-    return render(request, 'ticketList.html', context)
+        ticket.save()
+        
+        tickets = Ticket.objects.all()
+        tickets = tickets.filter(is_use=False, started_date=None, expired_date=None)
+        tickets = tickets.order_by('id')
+        context = {'tickets': tickets}
+        return render(request, 'ticketList.html', context)
+    else:
+        return redirect('index')
 
 def delete(request, id):
-    ticket = Ticket.objects.get(id=id)
-    ticket.is_use = False
-    ticket.started_date = datetime.now()
-    ticket.expired_date = datetime.now()
-    ticket.save()
+    if request.user.is_superuser:    
+        ticket = Ticket.objects.get(id=id)
+        ticket.is_use = False
+        ticket.started_date = datetime.now()
+        ticket.expired_date = datetime.now()
+        ticket.save()
 
-    tickets = Ticket.objects.all()
-    tickets = tickets.filter(is_use=False, started_date=None, expired_date=None)
-    tickets = tickets.order_by('id')
-    context = {'tickets': tickets}
+        tickets = Ticket.objects.all()
+        tickets = tickets.filter(is_use=False, started_date=None, expired_date=None)
+        tickets = tickets.order_by('id')
+        context = {'tickets': tickets}
 
-    return render(request, 'ticketList.html', context)
+        return render(request, 'ticketList.html', context)
+    else:
+        return redirect('index')
 
 def list(request):
-    # tickets = Ticket.objects.all()
-    # tickets = tickets.filter(is_use=False, started_date=None, expired_date=None)
-    # tickets = tickets.order_by('id')
-    User = get_user_model()
-    # print(Ticket.objects.prefetch_related('auth_user__id'))
-    tickets = Ticket.objects.filter(is_use=False, started_date=None, expired_date=None).order_by('id')
-    # .select_related(User)
+    if request.user.is_superuser:
+        user_model = get_user_model()
+        user = user_model.objects.all()
+        
+        tickets = Ticket.objects.select_related('user').filter(is_use=False, started_date=None, expired_date=None).order_by('id')
 
-    print(tickets)
-    context = {
-        'tickets': tickets
-    }
-    return render(request, 'ticketList.html', context)
+        context = {
+            'tickets': tickets
+        }
+        return render(request, 'ticketList.html', context)
+    else:
+        return redirect('index')
