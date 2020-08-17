@@ -58,7 +58,19 @@
     <script type="text/javascript">
         var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
         var date = new Date();//today의 Date를 세어주는 역할
+        // var a = "{{someDjangoVariable}}";
 
+        function setLessonTime(){
+            if($('#lesson_type').val() == 'group'){
+                $('#person').css("display", "none");
+                $('#group').css("display", "");
+                $('#group option:eq(0)').prop('selected', true);
+            } else{
+                $('#group').css("display", "none");
+                $('#person').css("display", "");
+                $('#person option:eq(0)').prop('selected', true);
+            }
+        }
         $(document).ready(function(){
             // alert(moment(today).format('LL'));
             
@@ -66,30 +78,25 @@
             for(var i=0; i<10; i++){
                 today = new Date();
                 today.setDate(today.getDate()+i);
-                var option = $("<option>"+moment(today).format('LL')+"</option>");
+                var option = $("<option value="+moment(today).format('L')+">"+moment(today).format('LL')+"</option>");
                 $('#date').append(option);
             }
 
+            if("{{param}}"){
+                $('#lesson_type').val("{{param.lesson_type}}").attr('selected', 'selected');
+                setLessonTime();
+                $('#date').val("{{param.date}}").attr('selected', 'selected');
+                $('#time').val("{{param.time}}").attr('selected', 'selected');
+            }
+
+            
             $("#lesson_type").change( function() {
-                $('#time').children('option').remove();
-                if($('#lesson_type').val() == '그룹'){
-                    $('#time').append($("<option>19:30 ~ 21:00</option>"));
-                    $('#time').append($("<option>21:10 ~ 22:40</option>"));
-                } else{
-                    $('#time').append($("<option>07:00 ~ 8:00</option>"));
-                    $('#time').append($("<option>08:00 ~ 9:00</option>"));
-                    $('#time').append($("<option>09:00 ~ 10:00</option>"));
-                    $('#time').append($("<option>10:00 ~ 11:00</option>"));
-                    $('#time').append($("<option>11:00 ~ 12:00</option>"));
-                    $('#time').append($("<option>12:00 ~ 13:00</option>"));
-                    $('#time').append($("<option>13:00 ~ 14:00</option>"));
-                    $('#time').append($("<option>14:00 ~ 15:00</option>"));
-                    $('#time').append($("<option>15:00 ~ 16:00</option>"));
-                    $('#time').append($("<option>16:00 ~ 17:00</option>"));
-                    $('#time').append($("<option>17:00 ~ 18:00</option>"));
-                }
+                setLessonTime();
+                // $('#time').children('option').remove();
+                
                 // alert($('#lesson_type').val());
             });
+            
         });
 
         function prevCalendar() {//이전 달
@@ -177,34 +184,67 @@
         <div class="container">
             <!-- <form method="GET" action="{% url 'ticket:create' %}"> -->
             <h1 class="signin-header">레슨 신청</h1>
-            <form method="GET" action="{% url 'lesson:list' %}">
+            <form method="POST" action="{% url 'lesson:form' %}">
+                {% csrf_token %}
                 <div class="form-group form-inline lesson-div-inline">
-                    <select class="form-control" id="lesson_type">
-                      <option>개인</option>
-                      <option>그룹</option>
+                    <select class="form-control" id="lesson_type" name="lesson_type">
+                      <option value="person">개인</option>
+                      <option value="group">그룹</option>
                     </select>
                 </div>
                 <div class="form-group form-inline lesson-div-inline">
-                    <select class="form-control" id="date">
+                    <select class="form-control" id="date" name="date">
                     </select>
                 </div>
                 <div class="form-group form-inline lesson-div-inline">
-                    <select class="form-control" id="time">
-                        <option>7:00 ~ 8:00</option>
-                        <option>8:00 ~ 9:00</option>
-                        <option>9:00 ~ 10:00</option>
-                        <option>10:00 ~ 11:00</option>
-                        <option>11:00 ~ 12:00</option>
-                        <option>12:00 ~ 13:00</option>
-                        <option>13:00 ~ 14:00</option>
-                        <option>14:00 ~ 15:00</option>
-                        <option>15:00 ~ 16:00</option>
-                        <option>16:00 ~ 17:00</option>
-                        <option>17:00 ~ 18:00</option>
+                    <select class="form-control" id="time" name="time">
+                        <optgroup id="person" label="개인">
+                            <option value="07:00">7:00 ~ 8:00</option>
+                            <option value="08:00">8:00 ~ 9:00</option>
+                            <option value="09:00">9:00 ~ 10:00</option>
+                            <option value="10:00">10:00 ~ 11:00</option>
+                            <option value="11:00">11:00 ~ 12:00</option>
+                            <option value="12:00">12:00 ~ 13:00</option>
+                            <option value="13:00">13:00 ~ 14:00</option>
+                            <option value="14:00">14:00 ~ 15:00</option>
+                            <option value="15:00">15:00 ~ 16:00</option>
+                            <option value="16:00">16:00 ~ 17:00</option>
+                            <option value="17:00">17:00 ~ 18:00</option>
+                        </optgroup>
+                        <optgroup id="group" label="그룹" style="display: none;">
+                            <option value='19:30'>19:30 ~ 21:00</option>
+                            <option value='21:10'>21:10 ~ 22:40</option>        
+                        </optgroup>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-margin btn-primary">조회</button>
             </form>
+            {% if lesson_info %}
+                <div id="lesson">
+
+                </div>
+                {% for lesson in lesson_info %}
+                    <script language="javascript" type="text/javascript">  
+                        var user_num = "{{lesson.user_num}}";
+                        var use_num = "{{lesson.use_num}}";
+                        alert(user_num);
+                        alert(use_num);
+                        for(var i=0; i<user_num-use_num; i++){
+                            var button = "<a href='{% url 'lesson:apply' lesson.id %}'><button class='btn btn-primary lesson-div-inline'>신청</button></a>";
+                            $('#lesson').append(button);
+                        }
+                        for(var i=0; i<use_num; i++){
+                            var button = "<a href='{% url 'lesson:apply' lesson.id %}'><button class='btn btn-primary lesson-div-inline' disabled='disabled'>신청</button></a>";
+                            $('#lesson').append(button);
+                        }
+
+                    </script>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-info">
+                    신청할 수 있는 레슨이 없습니다.
+                </div>
+            {% endif %}
             <!-- <table id="calendar" border="3" align="center" style="border-color:#3333FF ">
                 <tr>label은 마우스로 클릭을 편하게 해줌
                     <td><label onclick="prevCalendar()"><</label></td>
