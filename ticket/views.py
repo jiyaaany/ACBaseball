@@ -27,14 +27,14 @@ def create(request):
             ticket.expired_date += relativedelta(months=10)
         elif request.GET['ticket'].split('coupon')[1] == '100':
             ticket.expired_date += relativedelta(months=12)
-        return render(request, 'ticketsuccess.html')
+        return render(request, 'ticketSuccess.html')
     except Ticket.DoesNotExist:
         Ticket(
             lesson_type=request.GET['lesson_type'],
             ticket_type=request.GET['ticket'],
             user_id=user.id
         ).save()
-        return render(request, 'ticketsuccess.html')
+        return render(request, 'ticketSuccess.html')
 
 def update(request, id):
     if request.user.is_superuser:
