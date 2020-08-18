@@ -7,6 +7,7 @@ import bcrypt, datetime
 import jwt
 from acbaseball.settings import SECRET_KEY
 from django.contrib import auth
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from ticket.models import Ticket
@@ -18,14 +19,19 @@ def signup(request):
 
 def create(request):
     if request.method == "POST":
-        user = User.objects.create_user(
-            username=request.POST['username'],
-            first_name = request.POST['first_name'],
-            password=request.POST['password'],
-            email=request.POST['email']
-        )
-        auth.login(request,user)
-    return redirect('index')
+        try:
+            User.objects.filter(username=request.POST['username'])    
+            messages.info(request, '이미 사용 중인 아이디 입니다.')
+            return render(request, 'signup.html')
+        except User.DoesNotExist:
+            user = User.objects.create_user(
+                username=request.POST['username'],
+                first_name = request.POST['first_name'],
+                password=request.POST['password'],
+                email=request.POST['email']
+            )
+            auth.login(request,user)
+            return redirect('index')
 
 def login(request):
     if request.method == "POST":

@@ -28,6 +28,15 @@
     <div class="content_area">
         <div class="container">
             <h1 class="signin-header">회원가입</h1>
+            {% if messages %}
+                <div class="messages">
+                {% for message in messages %}
+                    <div {% if message.tags %} class="alert alert-{{message.tags}}"{% endif %}>
+                        {{message.message}}
+                    </div>
+                {% endfor %}
+                </div>  
+            {% endif %}
             <form method="POST" action="{%url 'accounts:create'%}">
                 {% csrf_token %}
                 <div class="form-group">

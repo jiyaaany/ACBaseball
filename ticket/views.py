@@ -11,12 +11,30 @@ def form(request):
 def create(request):
     User = get_user_model()
     user = User.objects.get(username=request.user)
-    Ticket(
-        lesson_type=request.GET['lesson_type'],
-        ticket_type=request.GET['ticket'],
-        user_id=user.id
-    ).save()
-    return render(request, 'ticketsuccess.html')
+
+    try:
+        ticket = Ticket.objects.get(ticket_type=request.GET['ticket'], is_use=True, user_id=user.id)
+        ticket.ticket_type = request.GET['ticket']
+        ticket.coupon += int(request.GET['ticket'].split('coupon')[1])
+        
+        if request.GET['ticket'].split('coupon')[1] == '10':
+            ticket.expired_date += relativedelta(months=2)
+        elif request.GET['ticket'].split('coupon')[1] == '20':
+            ticket.expired_date += relativedelta(months=3)
+        elif request.GET['ticket'].split('coupon')[1] == '30':
+            ticket.expired_date += relativedelta(months=6)
+        elif request.GET['ticket'].split('coupon')[1] == '50':
+            ticket.expired_date += relativedelta(months=10)
+        elif request.GET['ticket'].split('coupon')[1] == '100':
+            ticket.expired_date += relativedelta(months=12)
+        return render(request, 'ticketsuccess.html')
+    except Ticket.DoesNotExist:
+        Ticket(
+            lesson_type=request.GET['lesson_type'],
+            ticket_type=request.GET['ticket'],
+            user_id=user.id
+        ).save()
+        return render(request, 'ticketsuccess.html')
 
 def update(request, id):
     if request.user.is_superuser:
