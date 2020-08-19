@@ -50,17 +50,17 @@ def apply(request, id):
     user = user_model.objects.get(username=request.user)
     ticket = Ticket.objects.get(user_id=user.id, lesson_type=lesson_info.lesson_type, is_use=True)
     
-    Lesson_user(
-        lesson_info_id=id,
-        user_id=user.id
-    ).save()
-
     if lesson_info.use_num < lesson_info.user_num:
         lesson_info.use_num += 1
         lesson_info.save()
     else:
         messages.info(request, '해당 시간의 레슨은 신청할 수 없습니다. (정원초과)')
         return render(request, 'lessonSuccess.html')        
+
+    Lesson_user(
+        lesson_info_id=id,
+        user_id=user.id
+    ).save()
 
     if ticket.coupon > 0:
         if ticket.started_date is None:
