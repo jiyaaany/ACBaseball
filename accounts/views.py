@@ -21,7 +21,7 @@ def create(request):
     if request.method == "POST":
         try:
             User.objects.filter(username=request.POST['username'])    
-            messages.info(request, '이미 사용 중인 아이디 입니다.')
+            messages.info(request, request.POST['username']+' 는(은) 이미 사용 중인 아이디 입니다.')
             return render(request, 'signup.html')
         except User.DoesNotExist:
             user = User.objects.create_user(
