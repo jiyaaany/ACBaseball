@@ -19,11 +19,11 @@ def signup(request):
 
 def create(request):
     if request.method == "POST":
-        try:
-            User.objects.filter(username=request.POST['username'])    
+        user_model = get_user_model()
+        if user_model.objects.filter(username=request.POST['username']).exists():
             messages.info(request, request.POST['username']+' 는(은) 이미 사용 중인 아이디 입니다.')
             return render(request, 'signup.html')
-        except User.DoesNotExist:
+        else:
             user = User.objects.create_user(
                 username=request.POST['username'],
                 first_name = request.POST['first_name'],
@@ -32,7 +32,7 @@ def create(request):
             )
             auth.login(request,user)
             return redirect('index')
-
+        
 def login(request):
     if request.method == "POST":
         username = request.POST['username']
