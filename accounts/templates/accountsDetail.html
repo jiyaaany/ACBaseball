@@ -37,6 +37,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">레슨 타입</th>
                     <th scope="col">잔여 횟수</th>
                     <th scope="col">시작일</th>
                     <th scope="col">만료일</th>
@@ -46,6 +47,11 @@
                   {% for ticket in tickets %}  
                   <tr>
                     <th scope="row">{{ ticket.id }}</th>
+                    {% if ticket.lesson_type == 'person' %}
+                      <td>개인</td>
+                    {% else %}
+                      <td>그룹</td>
+                    {% endif %}
                     <td>{{ ticket.coupon }}</td>
                     <td>{{ ticket.started_date }}</td>
                     <td>{{ ticket.expired_date }}</td>
