@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,
+                               minimum-scale=1.0,maximum-scale=1.0,
+                               user-scalable=no" />
     <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
     <title>ACbaseball</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -29,81 +31,88 @@
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center no-gutters">
-                        <div class="col-xl-5 col-lg-5">
-                            <div class="main-menu  d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation">
-                                        <li><a href="#">이용안내<i class="ti-angle-down"></i></a>
+                        <div class="main-menu d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="#">이용안내<i class="ti-angle-down"></i></a>
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'time' %}">레슨 시간</a></li>
+                                            <li><a href="{% url 'fare' %}">레슨 요금</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">레슨<i class="ti-angle-down"></i></a>
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'cafe:baseball_photo' %}">레슨 사진</a></li>
+                                            <li><a href="{% url 'cafe:baseball_movie' %}">레슨 영상</a></li>
+                                        </ul>
+                                    </li>
+                                    <!-- <li><a href="#">대관<i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
-                                                <li><a href="{% url 'time' %}">레슨 시간</a></li>
-                                                <li><a href="{% url 'fare' %}">레슨 요금</a></li>
+                                                <li><a href="{% url 'schedule:form' %}">대관하기</a></li>
+                                                <li><a href="{% url 'schedule:show_schedule' %}">대관 현황</a></li>
                                             </ul>
-                                        </li>
-                                        <li><a href="#">레슨<i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="{% url 'cafe:baseball_photo' %}">레슨 사진</a></li>
-                                                <li><a href="{% url 'cafe:baseball_movie' %}">레슨 영상</a></li>
-                                            </ul>
-                                        </li>
-                                        <!-- <li><a href="#">대관<i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="{% url 'schedule:form' %}">대관하기</a></li>
-                                                    <li><a href="{% url 'schedule:show_schedule' %}">대관 현황</a></li>
-                                                </ul>
-                                            </li> -->
-                                    </ul>
-                                </nav>
+                                        </li> -->
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="logo-img">
+                            <a href="{% url 'index' %}">
+                                <img src="{% static 'img/logo.png' %}" alt="">
+                            </a>
+                        </div>
+                        <div class="book_room">
+                            <div class="socail_links">
+                                <ul>
+                                    {% if user.is_authenticated %}
+                                        {% if user.is_superuser %}
+                                            <li><a href="{% url 'accounts:list' %}">회원관리</a></li>
+                                            <li><a href="{% url 'ticket:list' %}">이용권 구매현황</a></li>
+                                        {% else %}
+                                            <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
+                                            <!-- <li><a href="{% url 'index' %}">글 작성하기</a></li> -->
+                                            <li><a href="{% url 'lesson:form' %}">레슨 신청</a></li>
+                                        {% endif %}
+                                        <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
+                                    {% else %}
+                                    <li>
+                                        <a href="{% url 'accounts:signup' %}">
+                                            회원가입
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'accounts:login' %}">
+                                            로그인
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if request.user_agent.is_pc %}
+                                    <li>
+                                        <a href="https://www.instagram.com/journey00_/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.facebook.com/profile.php?id=100006499416112">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
                             </div>
+                            <div class="book_btn d-none d-xl-block">
+                                <a class="#" href="#">+10 5021 2987</a>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xl-5 col-lg-5">
+                            
                         </div>
                         <div class="col-xl-2 col-lg-2">
-                            <div class="logo-img">
-                                <a href="{% url 'index' %}">
-                                    <img src="{% static 'img/logo.png' %}" alt="">
-                                </a>
-                            </div>
+                            
                         </div>
                         <div class="col-xl-5 col-lg-5 d-none d-lg-block">
-                            <div class="book_room">
-                                <div class="socail_links">
-                                    <ul>
-                                        {% if user.is_authenticated %}
-                                            {% if user.is_superuser %}
-                                                <li><a href="{% url 'accounts:list' %}">회원관리</a></li>
-                                                <li><a href="{% url 'ticket:list' %}">이용권 구매현황</a></li>
-                                            {% else %}
-                                                <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
-                                                <!-- <li><a href="{% url 'index' %}">글 작성하기</a></li> -->
-                                                <li><a href="{% url 'lesson:form' %}">레슨 신청</a></li>
-                                            {% endif %}
-                                            <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
-                                        {% else %}
-                                        <li>
-                                            <a href="{% url 'accounts:signup' %}">
-                                                회원가입
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{% url 'accounts:login' %}">
-                                                로그인
-                                            </a>
-                                        </li>
-                                        {% endif %}
-                                        <li>
-                                            <a href="https://www.instagram.com/journey00_/">
-                                                <i class="fa fa-instagram"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.facebook.com/profile.php?id=100006499416112">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="book_btn d-none d-xl-block">
-                                    <a class="#" href="#">+10 5021 2987</a>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>
