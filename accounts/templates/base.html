@@ -38,12 +38,18 @@
                                         <ul class="submenu">
                                             <li><a href="{% url 'time' %}">레슨 시간</a></li>
                                             <li><a href="{% url 'fare' %}">레슨 요금</a></li>
+                                            {% if not request.user_agent.is_pc %}
+                                                <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
+                                            {% endif %}
                                         </ul>
                                     </li>
                                     <li><a href="#">레슨<i class="ti-angle-down"></i></a>
                                         <ul class="submenu">
                                             <li><a href="{% url 'cafe:baseball_photo' %}">레슨 사진</a></li>
                                             <li><a href="{% url 'cafe:baseball_movie' %}">레슨 영상</a></li>
+                                            {% if not request.user_agent.is_pc %}
+                                                <li><a href="{% url 'lesson:form' %}">레슨 신청</a></li>
+                                            {% endif %}
                                         </ul>
                                     </li>
                                     <!-- <li><a href="#">대관<i class="ti-angle-down"></i></a>
@@ -68,9 +74,12 @@
                                             <li><a href="{% url 'accounts:list' %}">회원관리</a></li>
                                             <li><a href="{% url 'ticket:list' %}">이용권 구매현황</a></li>
                                         {% else %}
+                                        {% if request.user_agent.is_pc %}
                                             <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
                                             <!-- <li><a href="{% url 'index' %}">글 작성하기</a></li> -->
                                             <li><a href="{% url 'lesson:form' %}">레슨 신청</a></li>
+                                        {% endif %}
+                                            <li><a href="{% url 'accounts:detail' user.id %}">My Page</a></li>
                                         {% endif %}
                                         <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
                                     {% else %}
