@@ -60,7 +60,7 @@ def apply(request, id):
     Lesson_user(
         lesson_info_id=id,
         user_id=user.id
-    ).save()
+    ).save()    
 
     if ticket.coupon > 0:
         if ticket.started_date is None:
