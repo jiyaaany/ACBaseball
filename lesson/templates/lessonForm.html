@@ -73,12 +73,19 @@
         }
         $(document).ready(function(){
             // alert(moment(today).format('LL'));
-            
+            var day = ['일', '월', '화', '수', '목', '금', '토'];
             // 오늘 날짜에 맞춰 추후 10일 동안의 레슨 조회
             for(var i=0; i<10; i++){
                 today = new Date();
                 today.setDate(today.getDate()+i);
-                var option = $("<option value="+moment(today).format('L')+">"+moment(today).format('LL')+"</option>");
+                // <option style="color:gray" value="null">select one option</option>
+
+                // if(today.getDay()==5){
+                //     var option = $("<option style='color:blue;' value="+moment(today).format('L')+">"+moment(today).format('LL')+" ("+day[today.getDay()]+"요일)"+"</option>");    
+                // }else{
+                var option = $("<option value="+moment(today).format('L')+">"+moment(today).format('LL')+" ("+day[today.getDay()]+"요일)"+"</option>");
+                // }
+                
                 $('#date').append(option);
             }
 

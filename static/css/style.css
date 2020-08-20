@@ -810,6 +810,7 @@ h3 {
 /* line 29, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_header.scss */
 .header-area .main-header-area .logo-img {
   text-align: center;
+  width: 33%;
 }
 
 @media (max-width: 767px) {
@@ -870,7 +871,7 @@ h3 {
   -ms-justify-content: flex-end;
   justify-content: flex-end;
   -ms-flex-pack: flex-end;
-  width: 39%;
+  width: 33%;
 }
 
 /* line 64, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_header.scss */
@@ -914,7 +915,7 @@ h3 {
   border: 1px solid #F2C64D;
 }
 .header-area .main-header-area .main-menu {
-  width: 40%;  
+  width: 33%;  
 }
 
 

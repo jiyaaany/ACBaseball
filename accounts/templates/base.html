@@ -34,6 +34,12 @@
                         <div class="main-menu d-lg-block">
                             <nav>
                                 <ul id="navigation">
+                                    <li><a href="#">레슨장 소개<i class="ti-angle-down"></i></a>
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'center' %}">시설 소개</a></li>
+                                            <li><a href="{% url 'way' %}">오시는길</a></li>
+                                        </ul>
+                                    </li>
                                     <li><a href="#">이용안내<i class="ti-angle-down"></i></a>
                                         <ul class="submenu">
                                             <li><a href="{% url 'time' %}">레슨 시간</a></li>
