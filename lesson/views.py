@@ -8,6 +8,13 @@ from lesson.models import Lesson_info, Lesson_user
 from django.db.models import Count
 from django.contrib.auth import get_user_model
 from dateutil.relativedelta import relativedelta
+import requests
+from lesson import keys
+import time
+import json
+import base64
+import hashlib
+import hmac
 
 # Create your views here.
 def form(request):
@@ -29,6 +36,9 @@ def form(request):
         except Ticket.DoesNotExist:
             messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
             return render(request, 'ticketForm.html')        
+        except Lesson_info.DoesNotExist:
+            messages.info(request, '신청 가능한 레슨이 없습니다.')
+            return render(request, 'lessonForm.html')
     else:
         try:
             ticket = Ticket.objects.filter(user_id=user.id, is_use=1)
@@ -38,11 +48,12 @@ def form(request):
             return render(request, 'ticketForm.html')
 
 def list(request):
-    print('list')
-    # today = datetime.datetime.date(datetime.datetime.today())
-    # lesson_info = Lesson_info.objects.filter(date__gte=today).values('date').annotate(Count('id')).order_by('date')
-    lesson_info = Lesson_info.objects.all()    
-    return render(request, 'lessonList.html', {'lesson_info': lesson_info})
+    
+    today = datetime.today()
+    lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
+    lesson_user = lesson_user.order_by('lesson_info.date', 'lesson_info.time')
+    
+    return render(request, 'lessonList.html', {'lesson_user': lesson_user})
 
 def apply(request, id):
     lesson_info = Lesson_info.objects.get(id=id)
@@ -85,9 +96,50 @@ def apply(request, id):
         messages.info(request, '이용권을 모두 사용하셨습니다.')
         return render(request, 'ticketForm.html')
     
+    #SMS 보내기
+    # send_sms('010-5021-2987')
+
     param = {
         'lesson_info': lesson_info,
         'user': user,
         'ticket': ticket
     }
     return render(request, 'lessonSuccess.html', param)
+
+def send_sms(phone_number):
+    url = "https://sens.apigw.ntruss.com"
+    uri = "/sms/v2/services/" + keys.service_id + "/messages"
+    api_url = url + uri
+    timestamp = str(int(time.time() * 1000))
+    access_key = keys.access_key
+    string_to_sign = "POST " + uri + "\n" + timestamp + "\n" + access_key
+    signature = make_signature(string_to_sign)
+
+    message = "{}님 bernini 예약이 승인되었습니다.\n예약일자: {}".format(name, booking_date)
+
+    headers = {
+        'Content-Type': "application/json; charset=UTF-8",
+        'x-ncp-apigw-timestamp': timestamp,
+        'x-ncp-iam-access-key': access_key,
+        'x-ncp-apigw-signature-v2': signature
+    }
+
+    body = {
+        "type": "SMS",
+        "contentType": "COMM",
+        "from": "발신자번호",
+        "content": message,
+        "messages": [{"to": phone}]
+    }
+
+    body = json.dumps(body)
+
+    response = requests.post(api_url, headers=headers, data=body)
+    response.raise_for_status()
+
+def make_signature(string):
+    secret_key = bytes(keys.secret_key, 'UTF-8')
+    string = bytes(string, 'UTF-8')
+    string_hmac = hmac.new(secret_key, string, digestmod=hashlib.sha256).digest()
+    string_base64 = base64.b64encode(string_hmac).decode('UTF-8')
+    return string_base64

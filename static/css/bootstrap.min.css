@@ -2098,6 +2098,10 @@ pre code {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
+.selectpicker.form-control {
+    width: 250px;
+}
+
 .form-control-margin {
     margin: .5rem 0rem;
 }

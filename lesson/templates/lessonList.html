@@ -40,33 +40,37 @@
     <div class="content_area">
         <div class="container">
             <!-- <form method="GET" action="{% url 'ticket:create' %}"> -->
-            <h1 class="signin-header">레슨 신청</h1>
-            <table class="table table-bordered">
+            <h1 class="signin-header">레슨 관리</h1>
+            
+            <table class="table">
                 <thead>
-                    <tr>
-                      <th scope="col">일</th>
-                      <th scope="col">월</th>
-                      <th scope="col">화</th>
-                      <th scope="col">수</th>
-                      <th scope="col">목</th>
-                      <th scope="col">금</th>
-                      <th scope="col">토</th>
-                    </tr>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">레슨타입</th>
+                    <th scope="col">레슨일</th>
+                    <th scope="col">시간</th>
+                    <th scope="col">회원명</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    {% for lesson in lesson_info %}
+                  {% for lesson in lesson_user %}
+                  
+                  <tr>
+                    <th scope="row">{{lesson.id}}</th>
+                    {% if lesson.lesson_info.lesson_type == 'person' %}
+                        <td>개인</td>
+                    {% else %}
+                        <td>그룹</td>
+                    {% endif %}
+                    <td>{{lesson.lesson_info.date}}</td>
+                    <td>{{lesson.lesson_info.time}}</td>
+                    <td>{{lesson.user.first_name}}</td>
+                  </tr>
+                  
+                  {% endfor %}    
                 </tbody>
-            </table>
-            <div class="list-group lesson-div-inline">
-                {% for lesson in lesson_info %}
-                <a href="{% url 'lesson:list' %}" class="list-group-item list-group-item-action">{{ lesson.date }}</a>
-                {% endfor %}
-            </div>
-            <div class="list-group lesson-div-inline">
-                {% for lesson in lesson_info %}
-                <a href="#" class="list-group-item list-group-item-action">{{ lesson.date }}</a>
-                {% endfor %}
-            </div>
+              </table>
+            
         </div>
     </div>
     {% endblock %}
