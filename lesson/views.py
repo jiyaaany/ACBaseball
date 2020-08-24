@@ -141,10 +141,10 @@ def send_sms(lesson_info, user, ticket):
                 "to":str(user.email),
                 "content":message
             },
-            # {
-            #     "to":"01035050076",
-            #     "content":message
-            # }
+            {
+                "to":"01035050076",
+                "content":message
+            }
         ]
     }
 
