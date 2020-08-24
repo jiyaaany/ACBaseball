@@ -143,3 +143,7 @@ def make_signature(string):
     string_hmac = hmac.new(secret_key, string, digestmod=hashlib.sha256).digest()
     string_base64 = base64.b64encode(string_hmac).decode('UTF-8')
     return string_base64
+def photo(request):
+    return render(request, 'photo.html');
+def movie(request):
+    return render(request, 'movie.html');
