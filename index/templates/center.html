@@ -8,7 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
-    <title>시설 소개</title>
+    <title>인사말</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- CSS here -->
     <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
@@ -28,8 +28,33 @@
     {% block content %}
     <div class="content_area">
         <div class="container">
-            <h1 class="signin-header">시설 소개</h1>
-            
+            <h1 class="signin-header">인사말</h1>
+            <div>
+                <div class="div-inline-block" >
+                    <h3>AC 베이스볼 대표 <strong>김현우</strong>입니다.</h3>
+                    <h5>수유초 > 이수중 > 장충고 > 건국대 > <strong style="color: #FF8000;">롯데 자이언츠</strong> </h5>
+                    <p class="font-effect">AC베이스볼이 특별한 이유</p>
+                    <h4>                   
+                        <p class="line-gap">
+                        1. 재미와 즐거움을 선사하는 레슨 <br>
+                        2. 실력향상이 눈에 보이도록 <br><br>
+
+                        이 두가지를 신념을 지키며, 노력해나가는 레슨장입니다.<br><br>
+
+                        남녀노소 맞춤 눈높이 레슨으로 야구란 스포츠를 쉽게 접할 수 있도록, <br>
+                        어린 아이도 여성 분들도, 남성 분들도 모두가 야구를 재미있고 즐겁게 할 수 있도록 <br>
+                        도움을 줄 수 있는 레슨장이 되도록 끊임없이 노력하겠습니다. <br><br>
+                        </p>        
+                        <p class="closing-ment">
+                            ⭐️ 절대 노력은 배신하지 않습니다 !!! <br>
+                        </p>
+                    </h4>
+                </div>
+                <div class="div-inline-block" >
+                    <img src="{% static 'img/coach.jpeg' %}" alt="">
+                </div>
+                
+            </div>
         </div>
     </div>
     {% endblock %}
