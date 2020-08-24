@@ -6340,6 +6340,29 @@ h6 {
   vertical-align: middle;
   margin-right: 10px;
 }
+.div-inline-block {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.font-effect {
+  margin-top: 5%;
+  text-shadow: 2px 2px 2px gray;
+  font-family: "Arial Black", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #F79F81;
+}
+.line-gap {
+  line-height: 180%;
+  font-weight: normal;
+}
+
+.closing-ment {
+  color: #848484;
+  font-size: 30px;
+  font-weight: bold;
+}
 
 /* jiyeon */
 
