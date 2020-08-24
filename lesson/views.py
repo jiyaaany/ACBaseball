@@ -26,9 +26,11 @@ def form(request):
             param = {'lesson_type':request.POST['lesson_type'], 'date':request.POST['date'], 'time':request.POST['time']}
             lesson_info_object = Lesson_info.objects.get(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"), time=request.POST['time'])
             lesson_info = Lesson_info.objects.filter(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"), time=request.POST['time'])
+            # lesson_time = Lesson_info.objects.get(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"))
             context = {
                 'param': param,
                 'lesson_info':lesson_info
+                # 'lesson_time': lesson_time
             }
             if lesson_info_object.user_num == lesson_info_object.use_num:
                 messages.warning(request, '레슨 신청이 마감되었습니다.')
@@ -97,7 +99,7 @@ def apply(request, id):
         return render(request, 'ticketForm.html')
     
     #SMS 보내기
-    # send_sms('010-5021-2987')
+    send_sms(lesson_info, user, ticket)
 
     param = {
         'lesson_info': lesson_info,
@@ -106,43 +108,67 @@ def apply(request, id):
     }
     return render(request, 'lessonSuccess.html', param)
 
-def send_sms(phone_number):
-    url = "https://sens.apigw.ntruss.com"
-    uri = "/sms/v2/services/" + keys.service_id + "/messages"
-    api_url = url + uri
-    timestamp = str(int(time.time() * 1000))
-    access_key = keys.access_key
-    string_to_sign = "POST " + uri + "\n" + timestamp + "\n" + access_key
-    signature = make_signature(string_to_sign)
+def send_sms(lesson_info, user, ticket):
+    # url = "https://sens.apigw.ntruss.com"
+    # uri = "/sms/v2/services/" + keys.service_id + "/messages"
+    # api_url = url + uri
+    # timestamp = str(int(time.time() * 1000))
+    # access_key = keys.access_key
+    # string_to_sign = "POST " + uri + "\n" + timestamp + "\n" + access_key
 
-    message = "{}님 bernini 예약이 승인되었습니다.\n예약일자: {}".format(name, booking_date)
+    timestamp = int(time.time() * 1000)
+    timestamp = str(timestamp)
+    signature = make_signature()
+
+    print(user.email)
+    message = user.first_name+"님 예약이 완료되었습니다.\n예약일자: "+str(lesson_info.date)+"\n예약시간: "+lesson_info.time
 
     headers = {
         'Content-Type': "application/json; charset=UTF-8",
         'x-ncp-apigw-timestamp': timestamp,
-        'x-ncp-iam-access-key': access_key,
+        'x-ncp-iam-access-key': "D8n9QBfdjxFYrnRH1gAK",
         'x-ncp-apigw-signature-v2': signature
     }
 
     body = {
-        "type": "SMS",
-        "contentType": "COMM",
-        "from": "발신자번호",
-        "content": message,
-        "messages": [{"to": phone}]
+        "type":"SMS",
+        "contentType":"COMM",
+        "countryCode":"82",
+        "from":"01035050076",
+        "content":message,
+        "messages":[
+            {
+                "to":str(user.email),
+                "content":message
+            },
+            # {
+            #     "to":"01035050076",
+            #     "content":message
+            # }
+        ]
     }
 
     body = json.dumps(body)
 
-    response = requests.post(api_url, headers=headers, data=body)
+    response = requests.post("https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:260347726767:acbaseball/messages", headers=headers, data=body)
     response.raise_for_status()
 
-def make_signature(string):
-    secret_key = bytes(keys.secret_key, 'UTF-8')
-    string = bytes(string, 'UTF-8')
-    string_hmac = hmac.new(secret_key, string, digestmod=hashlib.sha256).digest()
-    string_base64 = base64.b64encode(string_hmac).decode('UTF-8')
-    return string_base64
+def make_signature():
+    timestamp = int(time.time() * 1000)
+    timestamp = str(timestamp)
+
+    access_key = "D8n9QBfdjxFYrnRH1gAK"				# access key id (from portal or Sub Account)
+    secret_key = "pTWZFY38zUtxj5Sn0YeBHDK1SFzUaG7mvwcKDaP6"
+    secret_key = bytes(secret_key, 'UTF-8')
+    
+    method = "POST"
+    uri = "/sms/v2/services/ncp:sms:kr:260347726767:acbaseball/messages"
+    message = method + " " + uri + "\n" + timestamp + "\n"+ access_key
+    message = bytes(message, 'UTF-8')
+    signingKey = base64.b64encode(hmac.new(secret_key, message, digestmod=hashlib.sha256).digest())
+    
+    return signingKey
+    
 def photo(request):
     return render(request, 'photo.html');
 def movie(request):
