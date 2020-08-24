@@ -6364,6 +6364,17 @@ h6 {
   font-weight: bold;
 }
 
+.lesson-photo-div {
+  float: left;
+  width: 50%;
+  margin-bottom: 10%;
+}
+.lesson-photo-div-right {
+  float: right;
+  width: 50%;
+  margin-bottom: 10%;
+}
+
 /* jiyeon */
 
 /*# sourceMappingURL=style.css.map */
