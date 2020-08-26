@@ -14,3 +14,6 @@ def center(request):
     return render(request, 'center.html')
 def way(request):
     return render(request, 'way.html')
+
+def facility(request):
+    return render(request, 'facility.html')
