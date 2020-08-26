@@ -10,6 +10,7 @@ urlpatterns = [
     path('apply/<int:id>', views.apply, name='apply'),
     path('photo/', views.photo, name='photo'),
     path('movie/', views.movie, name='movie'),
+    path('delete/<int:id>', views.delete, name='delete'),
     # re_path(r'^list/(?P<year>[0-9]{4})-(?P<month>[0-9]{2})-(?P<day>[0-9]{2})$', views.list, name='list')
     # path('list/<date:date>', views.list, name='list'),
     

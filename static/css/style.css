@@ -6364,6 +6364,10 @@ h6 {
   font-weight: bold;
 }
 
+.index-photo {
+  margin-bottom: 10%;
+}
+
 .lesson-photo-div {
   float: left;
   width: 50%;

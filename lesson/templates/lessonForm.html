@@ -91,39 +91,6 @@
                 $('#time').val("{{param.time}}").attr('selected', 'selected');
             }
 
-
-            // if("{{lesson_time}}"){
-
-            //     alert("time");
-                // var optionGroup = $("<optgroup id="person" label="개인">
-                //             <option value="07:00">7:00 ~ 8:00</option>
-                //             <option value="08:00">8:00 ~ 9:00</option>
-                //             <option value="09:00">9:00 ~ 10:00</option>
-                //             <option value="10:00">10:00 ~ 11:00</option>
-                //             <option value="11:00">11:00 ~ 12:00</option>
-                //             <option value="12:00">12:00 ~ 13:00</option>
-                //             <option value="13:00">13:00 ~ 14:00</option>
-                //             <option value="14:00">14:00 ~ 15:00</option>
-                //             <option value="15:00">15:00 ~ 16:00</option>
-                //             <option value="16:00">16:00 ~ 17:00</option>
-                //             <option value="17:00">17:00 ~ 18:00</option>
-                //         </optgroup>
-                //         <optgroup id="group" label="그룹" style="display: none;">
-                //             <option value='19:30'>19:30 ~ 21:00</option>
-                //             <option value='21:10'>21:10 ~ 22:40</option>        
-                //         </optgroup>");
-
-            //     $('#time').append(optionGroup);
-            // }
-
-            
-            // $("#lesson_type").change( function() {
-            //     setLessonTime();
-                // $('#time').children('option').remove();
-                
-                // alert($('#lesson_type').val());
-            // });
-            
         });
 
         function changeDate(){
@@ -153,7 +120,7 @@
             <form name="lesson_form" method="POST" action="{% url 'lesson:form' %}">
                 {% csrf_token %}
                 <div class="form-group form-inline">
-                    <select class="form-control" id="lesson_type" name="lesson_type">
+                    <select class="form-control" id="lesson_type" name="lesson_type" onchange="setLessonTime()">
                       <option value="person">개인</option>
                       <option value="group">그룹</option>
                     </select>

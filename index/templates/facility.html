@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
+    <title>시설 소개</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- CSS here -->
+    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/owl.carousel.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/magnific-popup.css" %}'>
+    <link rel="stylesheet" href='{% static "css/font-awesome.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/themify-icons.css" %}'>
+    <link rel="stylesheet" href='{% static "css/nice-select.css" %}'>
+    <link rel="stylesheet" href='{% static "css/flaticon.css" %}'>
+    <link rel="stylesheet" href='{% static "css/animate.css" %}'>
+    <link rel="stylesheet" href='{% static "css/slicknav.css" %}'>
+    <link rel="stylesheet" href='{% static "css/style.css" %}'>
+
+</head>
+
+<body>
+    {% block content %}
+    <div class="content_area">
+        <div class="container">
+            <h1 class="signin-header">시설 소개</h1>            
+            <div class="index-photo">
+                <img src="{% static 'img/index_photo1.jpeg' %}" alt="">
+            </div>
+            <div class="index-photo">
+                <img src="{% static 'img/index_photo2.jpeg' %}" alt="">
+            </div>
+            <div class="index-photo">
+                <img src="{% static 'img/index_photo3.jpeg' %}" alt="">
+            </div>
+            <div class="index-photo">
+                <img src="{% static 'img/index_photo4.jpeg' %}" alt="">
+            </div>
+            
+            
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
