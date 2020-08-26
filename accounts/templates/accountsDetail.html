@@ -58,7 +58,37 @@
                   </tr>
                   {% endfor %}
                 </tbody>
-            </table>            
+            </table>   
+            
+            <strong>{{user.first_name}}</strong> 님의 레슨 현황
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">레슨타입</th>
+                    <th scope="col">레슨일</th>
+                    <th scope="col">시간</th>
+                    <th scope="col">회원명</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for lesson in lessons %}  
+                  <tr>
+                    <th scope="row">{{ lesson.id }}</th>
+                    {% if lesson.lesson_info.lesson_type == 'person' %}
+                      <td>개인</td>
+                    {% else %}
+                      <td>그룹</td>
+                    {% endif %}
+                    <td>{{ lesson.lesson_info.date }}</td>
+                    <td>{{ lesson.lesson_info.time }}</td>
+                    <td>{{ lesson.user.first_name }}</td>
+                    <td><a href="{% url 'lesson:delete' lesson.id %}"><button class="btn btn-primary">취소</button></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>   
         </div>
     </div>
     {% endblock %}

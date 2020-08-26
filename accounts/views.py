@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from ticket.models import Ticket
+from lesson.models import Lesson_user,Lesson_info
 
 # Create your views here.
 
@@ -59,9 +60,13 @@ def list(request):
 def detail(request, id):
     user = User.objects.get(id=id)
     tickets = Ticket.objects.filter(user_id=id, is_use=True, coupon__gt=0, expired_date__gt=datetime.datetime.now(), started_date__lt=datetime.datetime.now())
+    lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')
+    lesson_user = lesson_user.filter(user_id=id)
+    lesson_user = lesson_user.order_by('-lesson_info.date', '-lesson_info.time')
     # ticket = Ticket.objects.get(id=)
     context = {
         'user': user,
         'tickets': tickets,
+        'lessons': lesson_user
     }
     return render(request, 'accountsDetail.html', context)
