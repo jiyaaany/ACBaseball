@@ -50,7 +50,6 @@ def form(request):
             return render(request, 'ticketForm.html')
 
 def list(request):
-    
     today = datetime.today()
     lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
     lesson_user = lesson_user.order_by('lesson_info.date', 'lesson_info.time')
@@ -170,6 +169,23 @@ def make_signature():
     return signingKey
     
 def photo(request):
-    return render(request, 'photo.html');
+    return render(request, 'photo.html')
 def movie(request):
-    return render(request, 'movie.html');
+    return render(request, 'movie.html')
+
+def delete(request, id):
+    lesson_user = Lesson_user.objects.get(id=id)
+    lesson_user.delete()
+
+    lesson_info = Lesson_info.objects.get(id=lesson_user.lesson_info_id)
+    lesson_info.use_num -= 1
+    lesson_info.save()
+
+    ticket = Ticket.objects.get(user_id=lesson_user.user_id, lesson_type=lesson_info.lesson_type, is_use=True)
+    ticket.coupon += 1
+    ticket.save()
+
+    lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
+    lesson_user = lesson_user.order_by('lesson_info.date', 'lesson_info.time')
+    
+    return render(request, 'lessonList.html', {'lesson_user': lesson_user})
