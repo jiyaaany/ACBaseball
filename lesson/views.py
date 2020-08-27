@@ -204,8 +204,6 @@ def delete(request, id):
             coupon = 1,
         ).save()
 
-    ticket = 
-
     #SMS 보내기
     send_sms(lesson_info, user, 'delete')
 
