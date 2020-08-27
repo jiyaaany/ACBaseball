@@ -143,7 +143,7 @@ def send_sms(lesson_info, user, ticket, type):
                 "content":message
             },
             {
-                "to":"01050212987",
+                "to":"01035050076",
                 "content":message
             }
         ]
@@ -185,15 +185,44 @@ def delete(request, id):
     lesson_info = Lesson_info.objects.get(id=lesson_user.lesson_info_id)
     lesson_info.use_num -= 1
     lesson_info.save()
+    
+    try:
+        live_ticket = Ticket.objects.get(user_id=user.id, lesson_type=lesson_info.lesson_type, is_use=True)
+        live_ticket.coupon += 1
+        live_ticket.save() 
 
-    ticket = Ticket.objects.get(user_id=lesson_user.user_id, lesson_type=lesson_info.lesson_type, is_use=True)
-    ticket.coupon += 1
-    ticket.save()
+    except Ticket.DoesNotExist:
+        last_ticket = Ticket.objects.get(user_id=user.id, lesson_type=lesson_info.lesson_type).order_by('-expired_date')[:1]
+        Ticket(
+            lesson_type=lesson_info.lesson_type,
+            ticket_type='coupon10',
+            create_date=datetime.now(),
+            started_date=datetime.now(),
+            expired_date=last_ticket.expired_date,
+            user_id=user.id,
+            is_use = True,
+            coupon = 1,
+        ).save()
 
     #SMS 보내기
-    send_sms(lesson_info, user, ticket, 'delete')
+    # send_sms(lesson_info, user, ticket, 'delete')
 
-    lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
-    lesson_user = lesson_user.order_by('lesson_info.date', 'lesson_info.time')
-    
-    return render(request, 'lessonList.html', {'lesson_user': lesson_user})
+    param_lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')
+    param_lesson_user = param_lesson_user.filter(user_id=user.id)
+    param_lesson_user = param_lesson_user.order_by('-lesson_info.date', '-lesson_info.time')
+
+    tickets = Ticket.objects.filter(user_id=user.id, is_use=True, coupon__gt=0, expired_date__gt=datetime.now(), started_date__lt=datetime.now())
+
+    context = {
+        'user': user,
+        'tickets': tickets,
+        'lessons': param_lesson_user
+    }
+
+    if request.user.is_superuser:
+        admin_lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
+        admin_lesson_user = admin_lesson_user.order_by('lesson_info.date', 'lesson_info.time')
+        
+        return render(request, 'lessonList.html', {'lesson_user': admin_lesson_user})
+    else:
+        return render(request, 'accountsDetail.html', context)
