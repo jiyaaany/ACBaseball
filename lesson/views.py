@@ -98,7 +98,7 @@ def apply(request, id):
         return render(request, 'ticketForm.html')
     
     #SMS 보내기
-    send_sms(lesson_info, user, ticket, 'insert')
+    send_sms(lesson_info, user, 'insert')
 
     param = {
         'lesson_info': lesson_info,
@@ -107,7 +107,7 @@ def apply(request, id):
     }
     return render(request, 'lessonSuccess.html', param)
 
-def send_sms(lesson_info, user, ticket, type):
+def send_sms(lesson_info, user, type):
     # url = "https://sens.apigw.ntruss.com"
     # uri = "/sms/v2/services/" + keys.service_id + "/messages"
     # api_url = url + uri
@@ -204,8 +204,10 @@ def delete(request, id):
             coupon = 1,
         ).save()
 
+    ticket = 
+
     #SMS 보내기
-    send_sms(lesson_info, user, ticket, 'delete')
+    send_sms(lesson_info, user, 'delete')
 
     param_lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')
     param_lesson_user = param_lesson_user.filter(user_id=user.id)
