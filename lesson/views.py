@@ -205,7 +205,7 @@ def delete(request, id):
         ).save()
 
     #SMS 보내기
-    # send_sms(lesson_info, user, ticket, 'delete')
+    send_sms(lesson_info, user, ticket, 'delete')
 
     param_lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')
     param_lesson_user = param_lesson_user.filter(user_id=user.id)
