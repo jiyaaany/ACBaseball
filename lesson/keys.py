@@ -1,3 +1,3 @@
-service_id = 'ncp:sms:kr:260343825695:acbaseball'
-access_key = 'AWGCkXTkSs66vlsIm4mr'
-secret_key = 'Y5SxTI3RbQyh9hYPD90UrmUNUP3B8Q5F6krOdjqV'
+service_id = 'ncp:sms:kr:260347726767:acbaseball'
+access_key = 'D8n9QBfdjxFYrnRH1gAK'
+secret_key = 'pTWZFY38zUtxj5Sn0YeBHDK1SFzUaG7mvwcKDaP6'

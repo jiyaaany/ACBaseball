@@ -98,7 +98,7 @@ def apply(request, id):
         return render(request, 'ticketForm.html')
     
     #SMS 보내기
-    send_sms(lesson_info, user, ticket)
+    send_sms(lesson_info, user, ticket, 'insert')
 
     param = {
         'lesson_info': lesson_info,
@@ -107,7 +107,7 @@ def apply(request, id):
     }
     return render(request, 'lessonSuccess.html', param)
 
-def send_sms(lesson_info, user, ticket):
+def send_sms(lesson_info, user, ticket, type):
     # url = "https://sens.apigw.ntruss.com"
     # uri = "/sms/v2/services/" + keys.service_id + "/messages"
     # api_url = url + uri
@@ -119,8 +119,10 @@ def send_sms(lesson_info, user, ticket):
     timestamp = str(timestamp)
     signature = make_signature()
 
-    print(user.email)
-    message = user.first_name+"님 예약이 완료되었습니다.\n예약일자: "+str(lesson_info.date)+"\n예약시간: "+lesson_info.time
+    if type == 'insert':
+        message = user.first_name+"님 예약이 완료되었습니다.\n예약일자: "+str(lesson_info.date)+"\n예약시간: "+lesson_info.time
+    elif type == 'delete':
+        message = user.first_name+"님 예약이 취소되었습니다.\n예약일자: "+str(lesson_info.date)+"\n예약시간: "+lesson_info.time
 
     headers = {
         'Content-Type': "application/json; charset=UTF-8",
@@ -141,7 +143,7 @@ def send_sms(lesson_info, user, ticket):
                 "content":message
             },
             {
-                "to":"01035050076",
+                "to":"01050212987",
                 "content":message
             }
         ]
@@ -149,19 +151,19 @@ def send_sms(lesson_info, user, ticket):
 
     body = json.dumps(body)
 
-    response = requests.post("https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:260347726767:acbaseball/messages", headers=headers, data=body)
+    response = requests.post("https://sens.apigw.ntruss.com/sms/v2/services/"+keys.service_id+"/messages", headers=headers, data=body)
     response.raise_for_status()
 
 def make_signature():
     timestamp = int(time.time() * 1000)
     timestamp = str(timestamp)
 
-    access_key = "D8n9QBfdjxFYrnRH1gAK"				# access key id (from portal or Sub Account)
-    secret_key = "pTWZFY38zUtxj5Sn0YeBHDK1SFzUaG7mvwcKDaP6"
+    access_key = keys.access_key				# access key id (from portal or Sub Account)
+    secret_key = keys.secret_key
     secret_key = bytes(secret_key, 'UTF-8')
     
     method = "POST"
-    uri = "/sms/v2/services/ncp:sms:kr:260347726767:acbaseball/messages"
+    uri = "/sms/v2/services/"+keys.service_id+"/messages"
     message = method + " " + uri + "\n" + timestamp + "\n"+ access_key
     message = bytes(message, 'UTF-8')
     signingKey = base64.b64encode(hmac.new(secret_key, message, digestmod=hashlib.sha256).digest())
@@ -177,6 +179,9 @@ def delete(request, id):
     lesson_user = Lesson_user.objects.get(id=id)
     lesson_user.delete()
 
+    user_model = get_user_model()
+    user = user_model.objects.get(id=lesson_user.user_id)
+
     lesson_info = Lesson_info.objects.get(id=lesson_user.lesson_info_id)
     lesson_info.use_num -= 1
     lesson_info.save()
@@ -184,6 +189,9 @@ def delete(request, id):
     ticket = Ticket.objects.get(user_id=lesson_user.user_id, lesson_type=lesson_info.lesson_type, is_use=True)
     ticket.coupon += 1
     ticket.save()
+
+    #SMS 보내기
+    send_sms(lesson_info, user, ticket, 'delete')
 
     lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
     lesson_user = lesson_user.order_by('lesson_info.date', 'lesson_info.time')
