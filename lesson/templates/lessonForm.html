@@ -63,10 +63,10 @@
         function setLessonTime(){
             if($('#lesson_type').val() == 'group'){
                 $('#person').css("display", "none");
-                $('#group').css("display", "");
-                $('#group option:eq(0)').prop('selected', true);
+                // $('#group').css("display", "");
+                // $('#group option:eq(0)').prop('selected', true);
             } else{
-                $('#group').css("display", "none");
+                // $('#group').css("display", "none");
                 $('#person').css("display", "");
                 $('#person option:eq(0)').prop('selected', true);
             }
@@ -146,10 +146,10 @@
                             <option value="21:00">21:00 ~ 22:00</option>
                             <option value="22:00">22:00 ~ 23:00</option>
                         </optgroup>
-                        <optgroup id="group" label="그룹" style="display: none;">
+                        <!-- <optgroup id="group" label="그룹" style="display: none;">
                             <option value='19:30'>19:30 ~ 21:00</option>
-                            <option value='21:10'>21:10 ~ 22:40</option>        
-                        </optgroup>
+                            <option value='21:10'>21:10 ~ 22:40</option>         
+                        </optgroup>-->
                     </select>
                 </div>
                 <button type="submit" class="btn btn-margin btn-primary">조회</button>
