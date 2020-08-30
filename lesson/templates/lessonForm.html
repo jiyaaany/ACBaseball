@@ -86,7 +86,7 @@
 
             if("{{param}}"){
                 $('#lesson_type').val("{{param.lesson_type}}").attr('selected', 'selected');
-                setLessonTime();
+                // setLessonTime();
                 $('#date').val("{{param.date}}").attr('selected', 'selected');
                 $('#time').val("{{param.time}}").attr('selected', 'selected');
             }
@@ -117,7 +117,7 @@
             <form name="lesson_form" method="POST" action="{% url 'lesson:form' %}">
                 {% csrf_token %}
                 <div class="form-group form-inline">
-                    <select class="form-control" id="lesson_type" name="lesson_type" onchange="setLessonTime()">
+                    <select class="form-control" id="lesson_type" name="lesson_type">
                       <option value="person">개인</option>
                       <!-- <option value="group">그룹</option> -->
                     </select>
