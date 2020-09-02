@@ -2845,8 +2845,9 @@ h3 {
 /* line 2, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_testmonial.scss */
 .testimonial_area {
   /* background: #909090; */
-  background-image: url("../img/background.jpg");
+  background-image: url("../img/background.jpeg");
   padding: 120px 0 115px 0;
+  background-repeat: no-repeat;
 }
 
 
