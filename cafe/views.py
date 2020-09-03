@@ -3,7 +3,14 @@ from .models import *
 
 # Create your views here.
 def create(request):
-    return render(request, 'index.html')
+    Notice(
+        title=request.POST['content'],
+        content=request.POST['content'],
+    ).save()
+
+    notices = Notice.objects.all().order_by('-id')
+
+    return render(request, 'cafeList.html', {'notices': notices})
     # profile.photo = request.FILES['photo']
 
 def form(request):
@@ -29,3 +36,8 @@ def photo_form(request):
 
 def photo_detail(request, post_id):
     return render(request, 'index.html')
+
+def list(request):
+    notices = Notice.objects.all().order_by('-id')
+
+    return render(request, 'cafeList.html', {'notices': notices})
