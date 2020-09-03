@@ -2848,6 +2848,7 @@ h3 {
   background-image: url("../img/background.jpeg");
   padding: 120px 0 115px 0;
   background-repeat: no-repeat;
+  background-size: cover;
 }
 
 
@@ -6378,6 +6379,25 @@ h6 {
   float: right;
   width: 50%;
   margin-bottom: 10%;
+}
+
+.textarea-notice {
+  width: 85%;
+  margin-right: 5%;
+  vertical-align: middle;
+}
+
+.submit-notice {
+  width: 100px;
+  height: 80px;
+}
+
+.div-notice {
+  vertical-align: middle;
+}
+
+.div-notice-margin {
+  margin: 5px;
 }
 
 /* jiyeon */
