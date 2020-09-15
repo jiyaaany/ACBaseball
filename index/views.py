@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from cafe.models import Notice
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    notices = Notice.objects.all().order_by('-id')[:3]
+    return render(request, 'index.html', {'notices': notices})
 
 def time(request):
     return render(request, 'time.html')
