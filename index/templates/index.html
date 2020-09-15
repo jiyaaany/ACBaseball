@@ -33,27 +33,26 @@
     {% block content %}
     <!-- testimonial_area_start  -->
         <div class="testimonial_area ">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="section_title mb-60 text-center">
-                                <span>Let's Play Baseball</span>
-                                <h3 style="color: white;">AC 베이스볼</h3>
-                            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="section_title mb-60 text-center">
+                            <span>Let's Play Baseball</span>
+                            <h3 style="color: white;"></h3>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="testmonial_active owl-carousel">
-                                <div class="single_carousel">
-                                    <div class="row justify-content-center">
-                                        <div class="col-lg-8">
-                                            <div class="single_testmonial text-center">
-                                                <p></p>
-                                                <div class="testmonial_author">
-                                                    <div class="thumb">
-                                                        <img src="img/testmonial/1.png" alt="">
-                                                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="testmonial_active owl-carousel">
+                            <div class="single_carousel">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <div class="single_testmonial text-center">
+                                            <p></p>
+                                            <div class="testmonial_author">
+                                                <div class="thumb">
+                                                    <img src="img/testmonial/1.png" alt="">
                                                 </div>
                                             </div>
                                         </div>
@@ -63,6 +62,26 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 mt-3">
+                    <h3>공지사항</h3>
+                </div>
+                
+                {% if notices %}
+                {% for notice in notices %}
+                <div class="col-xl-12">
+                    <div class="card div-notice-margin">
+                        <div class="card-body">
+                            <h5 class="card-title">{{notice.content}}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
         </div>
         {% endblock %}
     
