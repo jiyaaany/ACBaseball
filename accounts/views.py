@@ -3,8 +3,7 @@ import json
 from django.views import View
 from django.http  import JsonResponse,HttpResponse
 # from .models      import Users
-import bcrypt, datetime
-import jwt
+import datetime
 from acbaseball.settings import SECRET_KEY
 from django.contrib import auth
 from django.contrib import messages
@@ -70,3 +69,18 @@ def detail(request, id):
         'lessons': lesson_user
     }
     return render(request, 'accountsDetail.html', context)
+
+def findIDForm(request):
+    return render(request, 'accountsFindIDForm.html')
+
+def findID(request):
+    if request.method == "POST":
+        user_model = get_user_model()
+        users = user_model.objects.get(firstname=request.POST['firstname'], email=request.POST['email'])
+    return render(request, 'accountsFindIDList.html', {'users': users})
+
+def findPW(request):
+    return render(request, 'accountsFindPWForm.html')
+
+def findPWForm(request):
+    return render(request, 'accountsFindPWForm.html')

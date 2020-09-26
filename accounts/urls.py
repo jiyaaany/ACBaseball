@@ -11,4 +11,8 @@ urlpatterns = [
     path('create/', views.create, name='create'),
     path('list/', views.list, name='list'),
     path('detail/<int:id>/', views.detail, name='detail'),
+    path('findIDForm/', views.findIDForm, name='findIDForm'),
+    path('findID/', views.findID, name='findID'),
+    path('findPWForm/', views.findPWForm, name='findPWForm'),
+    path('findPW/', views.findPW, name='findPW'),
 ]

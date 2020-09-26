@@ -30,7 +30,9 @@
             <h1 class="signin-header">회원관리</h1>
             <div class="list-group">
                 {% for user in users %}
-                    <a href="{% url 'accounts:detail' user.id %} " class="list-group-item list-group-item-action">{{user.first_name}}</a>
+                    <a href="{% url 'accounts:detail' user.id %} " class="list-group-item list-group-item-action">
+                        {{user.first_name}} ({{ user.email }})
+                    </a>
                 {% endfor %}
               </div>
         </div>

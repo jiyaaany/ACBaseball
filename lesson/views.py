@@ -52,7 +52,7 @@ def form(request):
 def list(request):
     today = datetime.today()
     lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
-    lesson_user = lesson_user.order_by('lesson_info.date', 'lesson_info.time')
+    lesson_user = lesson_user.order_by('-lesson_info.date', 'lesson_info.time')
     
     return render(request, 'lessonList.html', {'lesson_user': lesson_user})
 
@@ -226,3 +226,12 @@ def delete(request, id):
         return render(request, 'lessonList.html', {'lesson_user': admin_lesson_user})
     else:
         return render(request, 'accountsDetail.html', context)
+
+def get(request, date):
+    aWeekDay = ['월', '화', '수', '목', '금', '토', '일']
+    dtDate = datetime.strptime(date, '%Y-%m-%d')
+    weekday = aWeekDay[dtDate.weekday()]
+    lesson_day = dtDate.strftime('%m월 %d일') + '(' + weekday + ")"
+    print(lesson_day)
+    lesson_infos = Lesson_info.objects.all().filter(date=date)
+    return render(request, 'lessonDetail.html', { 'lesson_day': lesson_day, 'lesson_infos': lesson_infos })
