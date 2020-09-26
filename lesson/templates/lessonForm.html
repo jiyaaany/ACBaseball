@@ -33,172 +33,53 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    
-    
 </head>
 
 <body>
-    
     {% block content %}   
-    <style type="text/css">
-        td{
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            font-size: 20px;
-            font-family: 굴림;
-            border:2px;
-            border-color:#3333FF;
-            border-radius: 8px;/*모서리 둥글게*/
-        }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
-    
-    <script type="text/javascript">
-        var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
-        var date = new Date();//today의 Date를 세어주는 역할
-        // var a = "{{someDjangoVariable}}";
-
-        function setLessonTime(){
-            if($('#lesson_type').val() == 'group'){
-                $('#person').css("display", "none");
-                // $('#group').css("display", "");
-                // $('#group option:eq(0)').prop('selected', true);
-            } else{
-                // $('#group').css("display", "none");
-                $('#person').css("display", "");
-                $('#person option:eq(0)').prop('selected', true);
-            }
-        }
-        $(document).ready(function(){
-            // alert(moment(today).format('LL'));
-            var day = ['일', '월', '화', '수', '목', '금', '토'];
-            // 오늘 날짜에 맞춰 추후 10일 동안의 레슨 조회
-            for(var i=0; i<10; i++){
-                today = new Date();
-                today.setDate(today.getDate()+i);
-                
-                var option = $("<option value="+moment(today).format('L')+">"+moment(today).format('LL')+" ("+day[today.getDay()]+"요일)"+"</option>");
-                
-                $('#date').append(option);
-            }
-
-            if("{{param}}"){
-                $('#lesson_type').val("{{param.lesson_type}}").attr('selected', 'selected');
-                // setLessonTime();
-                $('#date').val("{{param.date}}").attr('selected', 'selected');
-                $('#time').val("{{param.time}}").attr('selected', 'selected');
-            }
-
-        });
-
-        function changeDate(){
-            var form = document.lesson_form;
-            form.submit();
-        }
-
-    </script> 
-    
-    <div class="content_area">
+    <link href="{% static 'packages/core/main.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'packages/daygrid/main.css' %}" />
+    <div class="container">
         <div class="container">
             <!-- <form method="GET" action="{% url 'ticket:create' %}"> -->
             <h1 class="signin-header">레슨 신청</h1>
-              
-            {% if messages %}
-                <div class="messages">
-                {% for message in messages %}
-                    <div {% if message.tags %} class="alert alert-{{message.tags}}"{% endif %}>
-                        {{message.message}}
-                    </div>
-                {% endfor %}
-                </div>  
-            {% endif %}
-            <form name="lesson_form" method="POST" action="{% url 'lesson:form' %}">
-                {% csrf_token %}
-                <div class="form-group form-inline">
-                    <select class="form-control" id="lesson_type" name="lesson_type">
-                      <option value="person">개인</option>
-                      <!-- <option value="group">그룹</option> -->
-                    </select>
-                </div>
-                <div class="form-group form-inline">
-                    <select class="form-control" id="date" name="date">
-                    </select>
-                </div>
-                <div class="form-group form-inline">
-                    <select class="form-control" id="time" name="time">
-                        <optgroup id="person" label="개인">
-                            <option value="07:00">7:00 ~ 8:00</option>
-                            <option value="08:00">8:00 ~ 9:00</option>
-                            <option value="09:00">9:00 ~ 10:00</option>
-                            <option value="10:00">10:00 ~ 11:00</option>
-                            <option value="11:00">11:00 ~ 12:00</option>
-                            <option value="12:00">12:00 ~ 13:00</option>
-                            <option value="13:00">13:00 ~ 14:00</option>
-                            <option value="14:00">14:00 ~ 15:00</option>
-                            <option value="15:00">15:00 ~ 16:00</option>
-                            <option value="16:00">16:00 ~ 17:00</option>
-                            <option value="17:00">17:00 ~ 18:00</option>
-                            <option value="18:00">18:00 ~ 19:00</option>
-                            <option value="19:00">19:00 ~ 20:00</option>
-                            <option value="20:00">20:00 ~ 21:00</option>
-                            <option value="21:00">21:00 ~ 22:00</option>
-                            <option value="22:00">22:00 ~ 23:00</option>
-                        </optgroup>
-                        <!-- <optgroup id="group" label="그룹" style="display: none;">
-                            <option value='19:30'>19:30 ~ 21:00</option>
-                            <option value='21:10'>21:10 ~ 22:40</option>         
-                        </optgroup>-->
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-margin btn-primary">조회</button>
-            </form>
-            {% if lesson_info %}
-                <div id="lesson">
-
-                </div>
-                {% for lesson in lesson_info %}
-                    <script language="javascript" type="text/javascript">  
-                        var user_num = "{{lesson.user_num}}";
-                        var use_num = "{{lesson.use_num}}";
-
-                        for(var i=0; i<user_num-use_num; i++){
-                            var button = "<a href='{% url 'lesson:apply' lesson.id %}'><button class='btn btn-primary lesson-button-inline'>신청</button></a>";
-                            $('#lesson').append(button);
-                        }
-                        for(var i=0; i<use_num; i++){
-                            var button = "<a href='{% url 'lesson:apply' lesson.id %}'><button class='btn btn-primary lesson-button-inline' disabled='disabled'>신청</button></a>";
-                            $('#lesson').append(button);
-                        }
-
-                    </script>
-                {% endfor %}
-            {% endif %}
-            <!-- <table id="calendar" border="3" align="center" style="border-color:#3333FF ">
-                <tr>label은 마우스로 클릭을 편하게 해줌
-                    <td><label onclick="prevCalendar()"><</label></td>
-                    <td align="center" id="tbCalendarYM" colspan="5">
-                    yyyy년 m월</td>
-                    <td><label onclick="nextCalendar()">>
-                        
-                    </label></td>
-                </tr>
-                <tr>
-                    <td align="center"><font color ="#F79DC2">일</td>
-                    <td align="center">월</td>
-                    <td align="center">화</td>
-                    <td align="center">수</td>
-                    <td align="center">목</td>
-                    <td align="center">금</td>
-                    <td align="center"><font color ="skyblue">토</td>
-                </tr> 
-            </table> -->
-            <script language="javascript" type="text/javascript">
-                //buildCalendar();//
-            </script>
+            <div id='calendar'></div>
         </div>
     </div>
+    <script src="{% static 'packages/core/main.js' %}"></script>
+    <script src="{% static 'packages/interaction/main.js' %}"></script>
+    <script src="{% static 'packages/daygrid/main.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: [ 'interaction', 'dayGrid' ],
+            locale: 'ko',
+            initialView: 'dayGridMonth',
+            initialDate: '2020-09-07',
+            navLinks: true,
+            headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [
+            ],
+        });
+
+        calendar.render();
+        });
+
+        $(document).ready(function() {
+            $("*[data-date]").each(function() {
+                $(this).empty();
+                var date = $(this).attr('data-date');
+                var day = date.split('-')[2].startsWith('0') ? date.substr(9, 10) : date.substr(8, 10);
+                $(this).append(`<a href="/lesson/get/${date}">${day}</a>`)
+            })
+        });
+    </script>
     {% endblock %}
     
 </body>

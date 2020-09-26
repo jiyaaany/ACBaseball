@@ -39,6 +39,9 @@
                 <div class="form-group">
                     <a href="{% url 'accounts:signup' %}">계정이 없으신가요? <strong>지금 생성</strong></a>
                 </div>
+                <div class="form-group">
+                    <a href="{% url 'accounts:findIDForm' %}">계정이 기억나지 않는다면? <strong>아이디 </a><a href="{% url 'accounts:findPWForm' %}">/ 비밀번호 찾기</strong></a>
+                </div>
                 <button type="submit" class="btn btn-primary">로그인</button>
             </form>
         </div>

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href='{% static "img/favicon.png" %}'>
+    <title>비밀번호 찾기</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- CSS here -->
+    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/owl.carousel.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/magnific-popup.css" %}'>
+    <link rel="stylesheet" href='{% static "css/font-awesome.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/themify-icons.css" %}'>
+    <link rel="stylesheet" href='{% static "css/nice-select.css" %}'>
+    <link rel="stylesheet" href='{% static "css/flaticon.css" %}'>
+    <link rel="stylesheet" href='{% static "css/animate.css" %}'>
+    <link rel="stylesheet" href='{% static "css/slicknav.css" %}'>
+    <link rel="stylesheet" href='{% static "css/style.css" %}'>
+</head>
+
+<body>
+    {% block content %}
+    <div class="content_area">
+        <div class="container">
+            <h1 class="signin-header">비밀번호 찾기</h1>
+            <form method="POST" action="{% url 'accounts:login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="username" class="signin-control" placeholder="ID">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="signin-control" placeholder="암호">
+                </div>
+                <div class="form-group">
+                    <a href="{% url 'accounts:signup' %}">계정이 없으신가요? <strong>지금 생성</strong></a>
+                </div>
+                <button type="submit" class="btn btn-primary">로그인</button>
+            </form>
+        </div>
+    </div>
+    {% endblock %}    
+</body>
+</html>

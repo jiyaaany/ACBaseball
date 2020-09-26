@@ -6401,6 +6401,15 @@ h6 {
   margin: 5px;
 }
 
+.div-black-border {
+  border: 2px black solid;
+}
+
+.div-red-border {
+  border: 2px red solid;
+}
+
+
 /* jiyeon */
 
 /*# sourceMappingURL=style.css.map */
