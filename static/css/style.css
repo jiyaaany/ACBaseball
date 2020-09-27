@@ -2846,6 +2846,7 @@ h3 {
 .testimonial_area {
   /* background: #909090; */
   background-image: url("../img/background.jpeg");
+  background-position: center;
   padding: 120px 0 115px 0;
   background-repeat: no-repeat;
   background-size: cover;
