@@ -48,10 +48,10 @@
         <div class="container">
             <h1 class="signin-header">레슨 신청</h1>
             <h3>{{ lesson_day }}</h3>
-            <div class="d-flex pt-2">
+            <div class="d-flex pt-2 flex-nowrap" style="overflow-x: auto;">
                 {% for lesson_info in lesson_infos %}
                     {% if lesson_info.use_num > 0 %}
-                        <button class="btn btn-outline-danger p-2 mr-2" disabled>
+                        <button class="btn btn-outline-danger p-2 mr-2" style="flex: 0 0 auto;" disabled>
                             {{ lesson_info.time }}
                         </button>
                     {% else %}
@@ -61,7 +61,7 @@
                             </button>
                         <!-- </a> -->
                     {% endif %}
-                {% endfor %}
+                {% endfor %}    
             </div>
         </div>
     </div>
