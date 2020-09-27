@@ -6409,6 +6409,13 @@ h6 {
   border: 2px red solid;
 }
 
+.fc-sun {
+  color: red;
+}
+
+.fc-sat {
+  color: blue;
+}
 
 /* jiyeon */
 

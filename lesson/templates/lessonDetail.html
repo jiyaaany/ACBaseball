@@ -35,6 +35,15 @@
 <body>
     
     {% block content %}    
+    <script>
+        function confirmApply(ele) {
+            var result = confirm('레슨을 신청하시겠습니까?');
+            if (result) {
+                location.replace(`/lesson/apply/${ ele.id }`);
+            }
+        }
+    </script>
+
     <div class="content_area">
         <div class="container">
             <h1 class="signin-header">레슨 신청</h1>
@@ -46,18 +55,17 @@
                             {{ lesson_info.time }}
                         </button>
                     {% else %}
-                        <a href="{% url 'lesson:apply' lesson_info.id %}">
-                            <button class="btn btn-outline-primary p-2 mr-2">
+                        <!-- <a href="{% url 'lesson:apply' lesson_info.id %}"> -->
+                            <button class="btn btn-outline-primary p-2 mr-2" id="{{ lesson_info.id }}" onclick=confirmApply(this)>
                                 {{ lesson_info.time }}
                             </button>
-                        </a>
+                        <!-- </a> -->
                     {% endif %}
                 {% endfor %}
             </div>
         </div>
     </div>
     {% endblock %}
-    
 </body>
 
 </html>

@@ -55,17 +55,9 @@
                                         <ul class="submenu">
                                             <li><a href="{% url 'lesson:photo' %}">레슨 사진</a></li>
                                             <li><a href="{% url 'lesson:movie' %}">레슨 영상</a></li>
-                                            {% if not request.user_agent.is_pc %}
-                                                <li><a href="{% url 'lesson:form' %}">레슨 신청</a></li>
-                                            {% endif %}
                                         </ul>
                                     </li>
-                                    <!-- <li><a href="#">대관<i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="{% url 'schedule:form' %}">대관하기</a></li>
-                                                <li><a href="{% url 'schedule:show_schedule' %}">대관 현황</a></li>
-                                            </ul>
-                                        </li> -->
+                                    <li><a href="{% url 'lesson:form' %}">레슨 예약</a></li>
                                 </ul>
                             </nav>
                         </div>
