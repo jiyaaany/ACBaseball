@@ -65,18 +65,13 @@
             },
             events: [
             ],
+            dateClick: function(info) {
+                location.replace(`/lesson/get/${info.dateStr}`);
+            }
+
         });
 
         calendar.render();
-        });
-
-        $(document).ready(function() {
-            $("*[data-date]").each(function() {
-                // $(this).empty();
-                var date = $(this).attr('data-date');
-                var day = date.split('-')[2].startsWith('0') ? date.substr(9, 10) : date.substr(8, 10);
-                $(this).attr('onClick', `location.href='/lesson/get/${ date }'`);
-            })
         });
     </script>
     {% endblock %}
