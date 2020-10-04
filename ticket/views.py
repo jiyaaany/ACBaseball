@@ -101,6 +101,8 @@ def update(request, id):
                 old_ticket.expired_date += relativedelta(months=10)
             elif new_ticket.ticket_type.split('coupon')[1] == '100':
                 old_ticket.expired_date += relativedelta(months=12)
+            else:
+                old_ticket.expired_date += relativedelta(months=2)
             
             old_ticket.save()
             
@@ -124,6 +126,9 @@ def update(request, id):
                 new_ticket.expired_date = datetime.now() + relativedelta(months=10)
             elif new_ticket.ticket_type.split('coupon')[1] == '100':
                 new_ticket.expired_date = datetime.now() + relativedelta(months=12)
+            else:
+                new_ticket.expired_date = datetime.now() + relativedelta(months=2)
+
 
             new_ticket.save()
         
