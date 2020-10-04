@@ -54,7 +54,7 @@ def list(request):
     lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
     lesson_user = lesson_user.order_by('-lesson_info.date', 'lesson_info.time')
     
-    return render(request, 'lessonList.html', {'lesson_user': lesson_user})
+    return render(request, 'lessonList.html', {'lesson_user': lesson_user, 'today': today})
 
 def apply(request, id):
     lesson_info = Lesson_info.objects.get(id=id)
