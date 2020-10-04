@@ -88,6 +88,8 @@ def apply(request, id):
                 ticket.expired_date = datetime.now() + relativedelta(months=10)
             elif ticket.ticket_type.split('coupon')[1] == '100':
                 ticket.expired_date = datetime.now() + relativedelta(months=12)
+            else:
+                ticket.expired_date = datetime.now() + relativedelta(months=2)
         ticket.coupon -= 1
         if ticket.coupon == 0:
             ticket.is_use = False
