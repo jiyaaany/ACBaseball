@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ticket.models import Ticket
 from django.contrib.auth import get_user_model
 from django.contrib import messages
@@ -18,36 +18,41 @@ import hmac
 
 # Create your views here.
 def form(request):
-    user_model = get_user_model()
-    user = user_model.objects.get(username=request.user)
-    if request.method == 'POST':
-        try:
-            ticket = Ticket.objects.get(user_id=user.id, lesson_type=request.POST['lesson_type'], is_use=1)
-            param = {'lesson_type':request.POST['lesson_type'], 'date':request.POST['date'], 'time':request.POST['time']}
-            lesson_info_object = Lesson_info.objects.get(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"), time=request.POST['time'])
-            lesson_info = Lesson_info.objects.filter(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"), time=request.POST['time'])
-            # lesson_time = Lesson_info.objects.get(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"))
-            context = {
-                'param': param,
-                'lesson_info':lesson_info
-                # 'lesson_time': lesson_time
-            }
-            if lesson_info_object.user_num == lesson_info_object.use_num:
-                messages.warning(request, '레슨 신청이 마감되었습니다.')
-            return render(request, 'lessonForm.html', context)
-        except Ticket.DoesNotExist:
-            messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
-            return render(request, 'ticketForm.html')        
-        except Lesson_info.DoesNotExist:
-            messages.info(request, '신청 가능한 레슨이 없습니다.')
-            return render(request, 'lessonForm.html')
+    if request.user.is_anonymous :
+        messages.info(request, '로그인 후 이용해주세요.')
+        return redirect('accounts:login')
     else:
-        try:
-            ticket = Ticket.objects.filter(user_id=user.id, is_use=1)
-            return render(request, 'lessonForm.html')
-        except Ticket.DoesNotExist:
-            messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
-            return render(request, 'ticketForm.html')
+        user_model = get_user_model()
+        user = user_model.objects.get(username=request.user)
+        if request.method == 'POST':
+            try:
+                ticket = Ticket.objects.get(user_id=user.id, lesson_type=request.POST['lesson_type'], is_use=1)
+                param = {'lesson_type':request.POST['lesson_type'], 'date':request.POST['date'], 'time':request.POST['time']}
+                lesson_info_object = Lesson_info.objects.get(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"), time=request.POST['time'])
+                lesson_info = Lesson_info.objects.filter(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"), time=request.POST['time'])
+                # lesson_time = Lesson_info.objects.get(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"))
+                context = {
+                    'param': param,
+                    'lesson_info':lesson_info
+                    # 'lesson_time': lesson_time
+                }
+                if lesson_info_object.user_num == lesson_info_object.use_num:
+                    messages.warning(request, '레슨 신청이 마감되었습니다.')
+                return render(request, 'lessonForm.html', context)
+            except Ticket.DoesNotExist:
+                messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
+                return render(request, 'ticketForm.html')        
+            except Lesson_info.DoesNotExist:
+                messages.info(request, '신청 가능한 레슨이 없습니다.')
+                return render(request, 'lessonForm.html')
+        else:
+            try:
+                ticket = Ticket.objects.filter(user_id=user.id, is_use=1)
+                return render(request, 'lessonForm.html')
+            except Ticket.DoesNotExist:
+                messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
+                return render(request, 'ticketForm.html')
+        
 
 def list(request):
     today = datetime.today()
