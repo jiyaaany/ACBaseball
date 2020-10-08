@@ -84,3 +84,9 @@ def findPW(request):
 
 def findPWForm(request):
     return render(request, 'accountsFindPWForm.html')
+
+def search(request):
+    user_model = get_user_model()
+    users = user_model.objects.filter(first_name__icontains=request.POST.get('first_name'))
+    context = { 'users': users }
+    return render(request, 'accountsList.html', context)

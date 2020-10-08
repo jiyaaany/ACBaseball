@@ -15,4 +15,5 @@ urlpatterns = [
     path('findID/', views.findID, name='findID'),
     path('findPWForm/', views.findPWForm, name='findPWForm'),
     path('findPW/', views.findPW, name='findPW'),
+    path('search/', views.search, name='search')
 ]

@@ -28,6 +28,14 @@
     <div class="content_area">
         <div class="container">
             <h1 class="signin-header">회원관리</h1>
+            <form method="POST" action="{% url 'accounts:search' %}">
+                {% csrf_token %}
+                <div class="form-group d-flex align-items-center justify-content-center mr-3">
+                    <input type="text" class="form-control mr-3" name="first_name" placeholder="회원 이름">
+                    <button type="submit" class="btn btn-primary">검색</button>
+                </div>
+            </form>
+
             <div class="list-group">
                 {% for user in users %}
                     <a href="{% url 'accounts:detail' user.id %} " class="list-group-item list-group-item-action">
