@@ -18,7 +18,7 @@
     <script src="{% static 'js/main-script.js' %}"></script>
     <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
     <!-- <script src="js/vendor/jquery-1.12.4.min.js"></script> -->
-    
+
     <!-- CSS here -->
     <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
     <link rel="stylesheet" href='{% static "css/owl.carousel.min.css" %}'>
@@ -36,7 +36,7 @@
 </head>
 
 <body>
-    {% block content %}   
+    {% block content %}
     <link href="{% static 'packages/core/main.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'packages/daygrid/main.css' %}" />
     <div class="container">
@@ -55,7 +55,7 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'interaction', 'dayGrid' ],
-            locale: 'ko',            
+            locale: 'ko',
             initialView: 'dayGridMonth',
             initialDate: '2020-09-07',
             headerToolbar: {
@@ -66,7 +66,20 @@
             events: [
             ],
             dateClick: function(info) {
-                location.replace(`/lesson/get/${info.dateStr}`);
+
+                var selectDate = String(new Date(info.dateStr).getFullYear());
+                selectDate += String(new Date(info.dateStr).getMonth()+1).length < 2 ? "0" + String(new Date(info.dateStr).getMonth()+1) : String(new Date(info.dateStr).getMonth()+1);
+                selectDate += String(new Date(info.dateStr).getDate()).length < 2 ? "0" + String(new Date(info.dateStr).getDate()) : String(new Date(info.dateStr).getDate());
+
+                var today = String(new Date().getFullYear());
+                today += String(new Date().getMonth()+1).length < 2 ? "0" + String(new Date().getMonth()+1) : String(new Date().getMonth()+1);
+                today += String(new Date().getDate()).length < 2 ? "0" + String(new Date().getDate()) : String(new Date().getDate());
+
+                if (selectDate >= today) {
+                    location.replace(`/lesson/get/${info.dateStr}`);
+                } else {
+                    alert('지난 날은 레슨을 신청하실 수 없습니다.');
+                }
             }
 
         });
@@ -75,7 +88,7 @@
         });
     </script>
     {% endblock %}
-    
+
 </body>
 
 </html>

@@ -27,7 +27,7 @@ SECRET_KEY = 'qa@x!ty+16v7vd(wvraf3c1@hv9ha((!=yyf$i0+wbbd(6!w+n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.pythonanywhere.com', 'www.acbaseball.kr']
 
 
 # Application definition
@@ -91,10 +91,10 @@ WSGI_APPLICATION = 'acbaseball.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'acbaseball',
-        'USER': 'root',
+        'NAME': 'jiyaaan$acbaseball',
+        'USER': 'jiyaaan',
         'PASSWORD': 'Dydal0426^',
-        'HOST': 'localhost',
+        'HOST': 'jiyaaan.mysql.pythonanywhere-services.com',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
