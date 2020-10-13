@@ -23,11 +23,11 @@
     <link rel="stylesheet" href='{% static "css/animate.css" %}'>
     <link rel="stylesheet" href='{% static "css/slicknav.css" %}'>
     <link rel="stylesheet" href='{% static "css/style.css" %}'>
-    
+
 </head>
 
 <body>
-    {% block content %}    
+    {% block content %}
     <div class="content_area">
         <div class="container">
             <form method="GET" action="{% url 'ticket:create' %}">
@@ -39,7 +39,7 @@
                             {{message.message}}
                         </div>
                     {% endfor %}
-                    </div>  
+                    </div>
                 {% endif %}
                 <p>
                     <label for="">엘리트 선수 레슨은 전화 문의 부탁드립니다. (010-3505-0076)</label>
@@ -71,20 +71,56 @@
                         <option value="coupon100">100회 (12개월)</option>
                     </optgroup>
                 </select>
-                
                 <button type="submit" class="btn btn-margin btn-primary">구매 신청</button>
-                
-                
                 <p class="p-highlight">
                     괄호 안의 개월 수는 쿠폰 유효기간으로 쿠폰 구입일이 아닌 첫 레슨 시작일부터 입니다. <br>
                     기간 만료 시 자동 소진됩니다.
                 </p>
-
             </form>
+            <h1 class="signin-header">레슨 시간</h1>
+            <div>
+                <h3> ⚾️ 개인 레슨 (1시간) ⚾️ </h3><br>
+                <label for="">개인 레슨은 월~일 가능합니다.</label>
+                <h5>오전 7:00 ~ 8:00</h5>
+                <h5>오전 8:00 ~ 9:00 </h5>
+                <h5>오전 9:00 ~ 10:00 </h5>
+                <h5>오전 10:00 ~ 11:00 </h5>
+                <h5>오전 11:00 ~ 12:00 </h5>
+                <h5>오후 12:00 ~ 13:00 </h5>
+                <h5>오후 13:00 ~ 14:00 </h5>
+                <h5>오후 14:00 ~ 15:00 </h5>
+                <h5>오후 15:00 ~ 16:00 </h5>
+                <h5>오후 16:00 ~ 17:00 </h5>
+                <h5>오후 17:00 ~ 18:00 </h5>
+                <h5>오후 18:00 ~ 19:00 </h5>
+                <h5>오후 19:00 ~ 20:00 </h5>
+                <h5>오후 20:00 ~ 21:00 </h5>
+                <h5>오후 21:00 ~ 22:00 </h5>
+                <h5>오후 22:00 ~ 23:00 </h5>
+            </div>
+
+            <h1 class="signin-header">레슨 요금</h1>
+            <p>
+                <label for="">엘리트 선수 레슨은 전화 문의 부탁드립니다. (010-3505-0076)</label>
+            </p>
+            <div class="div-inline">
+                <h3> ⚾️ 사회인 개인 레슨 (1시간) ⚾️ </h3><br>
+                <h5>1회 <del>5만원</del> 👉🏻 3만원 (OPEN 이벤트)</h5>
+                <h5>10회 (+1회 추가) 👉🏻 30만원 (2개월) </h5>
+                <h5>20회 (+2회 추가) 👉🏻 60만원 (3개월)</h5>
+                <h5>30회 (+3회 추가) 👉🏻 90만원 (6개월)</h5>
+                <h5>50회 (+5회 추가) 👉🏻 150만원 (10개월) </h5>
+                <h5>100회 (+10회 추가) 👉🏻 300만원 (12개월) </h5>
+            </div>
+
+            <p class="p-highlight">
+                괄호 안의 개월 수는 쿠폰 유효기간으로 쿠폰 구입일이 아닌 첫 레슨 시작일부터 입니다. <br>
+                기간 만료 시 자동 소진됩니다.
+            </p>
         </div>
     </div>
     {% endblock %}
-    
+
 </body>
 
 </html>

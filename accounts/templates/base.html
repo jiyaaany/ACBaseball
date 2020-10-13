@@ -22,7 +22,7 @@
     <link rel="stylesheet" href='{% static "css/slicknav.css" %}'>
     <link rel="stylesheet" href='{% static "css/style.css" %}'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
 </head>
 
 <body>
@@ -42,15 +42,7 @@
                                             <li><a href="{% url 'facility' %}">시설 소개</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">이용안내<i class="ti-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="{% url 'time' %}">레슨 시간</a></li>
-                                            <li><a href="{% url 'fare' %}">레슨 요금</a></li>
-                                            {% if not request.user_agent.is_pc %}
-                                                <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
-                                            {% endif %}
-                                        </ul>
-                                    </li>
+                                    <li><a href="{% url 'ticket:form' %}">성인 이용안내</a></li>
                                     <li><a href="#">AC 소식<i class="ti-angle-down"></i></a>
                                         <ul class="submenu">
                                             <li><a href="{% url 'lesson:photo' %}">레슨 사진</a></li>
@@ -58,6 +50,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="{% url 'lesson:form' %}">레슨 예약</a></li>
+                                    <li><a href="#">유소년 이용안내 (예정)</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -116,13 +109,13 @@
 
 
                         <div class="col-xl-5 col-lg-5">
-                            
+
                         </div>
                         <div class="col-xl-2 col-lg-2">
-                            
+
                         </div>
                         <div class="col-xl-5 col-lg-5 d-none d-lg-block">
-                            
+
                         </div>
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>
@@ -154,7 +147,7 @@
                             <h3 class="footer_title">사업자번호 (584-26-01074) <br></h3>
                             <h5>대표 : 김현우</h5>
                             <h4>IBK기업은행 084-104541-01-011 <br></h4>
-                            
+
                             <form action="#" class="newsletter_form">
                                 <!-- <input type="text" placeholder="Enter your mail">
                                 <button type="submit">Sign Up</button> -->
