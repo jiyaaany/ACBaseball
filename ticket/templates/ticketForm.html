@@ -28,6 +28,11 @@
 
 <body>
     {% block content %}
+    <!-- bradcam_area_start -->
+    <div class="bradcam_area breadcam_bg overlay">
+        <h3>TICKET</h3>
+    </div>
+    <!-- bradcam_area_end -->
     <div class="content_area">
         <div class="container">
             <form method="GET" action="{% url 'ticket:create' %}">

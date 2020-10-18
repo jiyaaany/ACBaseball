@@ -31,60 +31,46 @@
 
 <body>
     {% block content %}
-    <!-- testimonial_area_start  -->
-        <div class="testimonial_area ">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="section_title mb-60 text-center">
-                            <span>Let's Play Baseball</span>
-                            <h3 style="color: white;"></h3>
+    <!-- slider_area_start -->
+    <div class="slider_area">
+        <div class="slider_active owl-carousel">
+            <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-xl-9 col-md-9 col-md-12">
+                            <div class="slider_text text-center">
+                                <div class="deal_text">
+                                    <span>Let's Play</span>
+                                </div>
+                                <h3>AC <br>
+                                    Baseball</h3>
+                                <h4>Together</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="testmonial_active owl-carousel">
-                            <div class="single_carousel">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-8">
-                                        <div class="single_testmonial text-center">
-                                            <p></p>
-                                            <div class="testmonial_author">
-                                                <div class="thumb">
-                                                    <img src="img/testmonial/1.png" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+            </div>
+            <div class="single_slider  d-flex align-items-center slider_bg_2 overlay">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-xl-9 col-md-9 col-md-12">
+                            <div class="slider_text text-center">
+                                <div class="deal_text">
+                                    <span>Let's Play</span>
                                 </div>
+                                <h3>AC <br>
+                                    Baseball</h3>
+                                <h4>Together</h4>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 mt-3">
-                    <h3>공지사항</h3>
-                </div>
-                
-                {% if notices %}
-                {% for notice in notices %}
-                <div class="col-xl-12">
-                    <div class="card div-notice-margin">
-                        <div class="card-body">
-                            <h5 class="card-title">{{notice.content}}</h5>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% endif %}
-            </div>
-        </div>
-        {% endblock %}
+    </div>
+    <!-- slider_area_end -->
     
+    {% endblock %}
 
     <!-- JS here -->
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>

@@ -35,10 +35,12 @@ def create(request):
         
 def login(request):
     if request.method == "POST":
+        print('login post')
         username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
+            print('login')
             auth.login(request, user)
             return redirect('index')
         else:

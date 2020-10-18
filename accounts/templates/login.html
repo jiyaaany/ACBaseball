@@ -25,7 +25,147 @@
 
 <body>
     {% block content %}
-    <div class="content_area">
+
+    <!-- bradcam_area_start -->
+    <div class="bradcam_area breadcam_bg overlay">
+        <h3>SIGN IN</h3>
+    </div>
+    <!-- bradcam_area_end -->
+
+    <div class="best_burgers_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section_title mb-80 w-relative-100">
+                        <form method="POST" action="{% url 'accounts:login' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="username" class="signin-control" placeholder="ID">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="signin-control" placeholder="암호">
+                            </div>
+                            <div class="form-group">
+                                <a href="{% url 'accounts:signup' %}">계정이 없으신가요? <strong>지금 생성</strong></a>
+                            </div>
+                            <div class="form-group">
+                                <a href="{% url 'accounts:findIDForm' %}">계정이 기억나지 않는다면? <strong>아이디 </a><a href="{% url 'accounts:findPWForm' %}">/ 비밀번호 찾기</strong></a>
+                            </div>
+                            <button type="submit" class="btn btn-primary">로그인</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-xl-6 col-md-6 col-lg-6">
+                    <div class="single_delicious d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="#" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Beefy Burgers</h3>
+                            <p>Great way to make your business appear trust and relevant.</p>
+                            <span>$5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="single_delicious d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="#" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Burger Boys</h3>
+                            <p>Great way to make your business appear trust and relevant.</p>
+                            <span>$5</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="single_delicious d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="#" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Burger Bizz</h3>
+                            <p>Great way to make your business appear trust and relevant.</p>
+                            <span>$5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6 col-lg-6">
+                    <div class="single_delicious d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="#" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Crackles Burger</h3>
+                            <p>Great way to make your business appear trust and relevant.</p>
+                            <span>$5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="single_delicious d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="#" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Bull Burgers</h3>
+                            <p>Great way to make your business appear trust and relevant.</p>
+                            <span>$5</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="single_delicious d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="#" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Rocket Burgers</h3>
+                            <p>Great way to make your business appear trust and relevant.</p>
+                            <span>$5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="single_delicious d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="#" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Smokin Burger</h3>
+                            <p>Great way to make your business appear trust and relevant.</p>
+                            <span>$5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="single_delicious d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="#" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Delish Burger</h3>
+                            <p>Great way to make your business appear trust and relevant.</p>
+                            <span>$5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="iteam_links">
+                        <a class="boxed-btn5" href="Menu.html">More Items</a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <!-- <div class="content_area">
         <div class="container">
             <h1 class="signin-header">로그인</h1>
             <form method="POST" action="{% url 'accounts:login' %}">
@@ -45,7 +185,7 @@
                 <button type="submit" class="btn btn-primary">로그인</button>
             </form>
         </div>
-    </div>
+    </div> -->
     {% endblock %}
 </body>
 

@@ -751,7 +751,6 @@ h3 {
 
 /* line 1, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_header.scss */
 .header-area {
-  background-color: #000;
   position: absolute;
   left: 0;
   right: 0;
@@ -871,7 +870,6 @@ h3 {
   -ms-justify-content: flex-end;
   justify-content: flex-end;
   -ms-flex-pack: flex-end;
-  width: 45%;
 }
 
 /* line 64, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_header.scss */
@@ -915,7 +913,7 @@ h3 {
   border: 1px solid #F2C64D;
 }
 .header-area .main-header-area .main-menu {
-  width: 45%;  
+  padding: 0;
 }
 
 
@@ -1140,12 +1138,12 @@ h3 {
 
 /* line 1, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_slider.scss */
 .slider_bg_1 {
-  background-image: url(../img/banner/banner.png);
+  background-image: url("../img/background.jpeg");
 }
 
 /* line 4, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_slider.scss */
 .slider_bg_2 {
-  background-image: url(../img/banner/banner2.png);
+  background-image: url(../img/background2.jpeg);
 }
 
 /* line 7, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_slider.scss */
@@ -2671,7 +2669,7 @@ h3 {
 
 /* line 1, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_bradcam.scss */
 .breadcam_bg {
-  background-image: url(../img/banner/bradcam.png);
+  background-image: url(../img/banner/bradcam.jpeg);
 }
 
 /* line 4, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_bradcam.scss */
@@ -6301,14 +6299,6 @@ h6 {
 
 
 /* jiyeon */
-
-.content_area{
-  overflow: hidden;
-  height: auto;
-  /* border: 1px solid black; */
-  padding: 120px 0 115px 0;
-}
-
 .div-inline {
   /* border : 1px solid black; */
   float: left;

@@ -105,7 +105,7 @@ def apply(request, id):
         return render(request, 'ticketForm.html')
     
     #SMS 보내기
-    send_sms(lesson_info, user, 'insert')
+    # send_sms(lesson_info, user, 'insert')
 
     param = {
         'lesson_info': lesson_info,
@@ -212,7 +212,7 @@ def delete(request, id):
         ).save()
 
     #SMS 보내기
-    send_sms(lesson_info, user, 'delete')
+    # send_sms(lesson_info, user, 'delete')
 
     param_lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')
     param_lesson_user = param_lesson_user.filter(user_id=user.id)

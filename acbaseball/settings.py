@@ -91,10 +91,10 @@ WSGI_APPLICATION = 'acbaseball.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jiyaaan$acbaseball',
-        'USER': 'jiyaaan',
+        'NAME': 'acbaseball',
+        'USER': 'root',
         'PASSWORD': 'Dydal0426^',
-        'HOST': 'jiyaaan.mysql.pythonanywhere-services.com',
+        'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
