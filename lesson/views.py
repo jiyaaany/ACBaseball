@@ -239,6 +239,8 @@ def get(request, date):
     dtDate = datetime.strptime(date, '%Y-%m-%d')
     weekday = aWeekDay[dtDate.weekday()]
     lesson_day = dtDate.strftime('%m월 %d일') + '(' + weekday + ")"
-    print(lesson_day)
-    lesson_infos = Lesson_info.objects.all().filter(date=date)
-    return render(request, 'lessonDetail.html', { 'lesson_day': lesson_day, 'lesson_infos': lesson_infos })
+
+    lesson_infos = Lesson_info.objects.filter(date=date)
+    lesson_users = Lesson_user.objects.select_related('lesson_info').select_related('user')
+    
+    return render(request, 'lessonDetail.html', { 'lesson_day': lesson_day, 'lesson_infos': lesson_infos, 'lesson_users': lesson_users })
