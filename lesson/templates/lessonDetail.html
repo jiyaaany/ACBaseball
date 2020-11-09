@@ -57,13 +57,16 @@
                         {% if lesson_info.use_num > 0 %}
                             <button class="btn btn-outline-danger p-2 mr-2 mb-2" style="flex: 0 0 auto;" disabled>
                                 {{ lesson_info.time }}
+                                {% for lesson_user in lesson_users %}
+                                    {% if lesson_user.lesson_info_id == lesson_info.id %}
+                                        ({{ lesson_user.user.first_name }})
+                                    {% endif %}
+                                {% endfor %}
                             </button>
                         {% else %}
-                            <!-- <a href="{% url 'lesson:apply' lesson_info.id %}"> -->
-                                <button class="btn btn-outline-primary p-2 mr-2 mb-2" id="{{ lesson_info.id }}" onclick=confirmApply(this)>
-                                    {{ lesson_info.time }}
-                                </button>
-                            <!-- </a> -->
+                            <button class="btn btn-outline-primary p-2 mr-2 mb-2" id="{{ lesson_info.id }}" onclick=confirmApply(this)>
+                                {{ lesson_info.time }}
+                            </button>
                         {% endif %}
                     {% endfor %}
                 </div>
