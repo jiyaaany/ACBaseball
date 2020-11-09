@@ -41,7 +41,7 @@ def form(request):
                 return render(request, 'lessonForm.html', context)
             except Ticket.DoesNotExist:
                 messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
-                return render(request, 'ticketForm.html')        
+                return render(request, 'ticketForm.html')
             except Lesson_info.DoesNotExist:
                 messages.info(request, '신청 가능한 레슨이 없습니다.')
                 return render(request, 'lessonForm.html')
@@ -52,13 +52,13 @@ def form(request):
             except Ticket.DoesNotExist:
                 messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
                 return render(request, 'ticketForm.html')
-        
+
 
 def list(request):
     today = datetime.today()
-    lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
+    lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')
     lesson_user = lesson_user.order_by('-lesson_info.date', 'lesson_info.time')
-    
+
     return render(request, 'lessonList.html', {'lesson_user': lesson_user, 'today': today})
 
 def apply(request, id):
@@ -66,23 +66,23 @@ def apply(request, id):
     user_model = get_user_model()
     user = user_model.objects.get(username=request.user)
     ticket = Ticket.objects.get(user_id=user.id, lesson_type=lesson_info.lesson_type, is_use=True)
-    
+
     if lesson_info.use_num < lesson_info.user_num:
         lesson_info.use_num += 1
         lesson_info.save()
     else:
         messages.info(request, '해당 시간의 레슨은 신청할 수 없습니다. (정원초과)')
-        return render(request, 'lessonSuccess.html')        
+        return render(request, 'lessonSuccess.html')
 
     Lesson_user(
         lesson_info_id=id,
         user_id=user.id
-    ).save()    
+    ).save()
 
     if ticket.coupon > 0:
         if ticket.started_date is None:
             ticket.started_date = datetime.now()
-        if ticket.expired_date is None: 
+        if ticket.expired_date is None:
             if ticket.ticket_type.split('coupon')[1] == '10':
                 ticket.expired_date = datetime.now() + relativedelta(months=2)
             elif ticket.ticket_type.split('coupon')[1] == '20':
@@ -103,9 +103,9 @@ def apply(request, id):
     else:
         messages.info(request, '이용권을 모두 사용하셨습니다.')
         return render(request, 'ticketForm.html')
-    
+
     #SMS 보내기
-    # send_sms(lesson_info, user, 'insert')
+    send_sms(lesson_info, user, 'insert')
 
     param = {
         'lesson_info': lesson_info,
@@ -168,15 +168,15 @@ def make_signature():
     access_key = keys.access_key				# access key id (from portal or Sub Account)
     secret_key = keys.secret_key
     secret_key = bytes(secret_key, 'UTF-8')
-    
+
     method = "POST"
     uri = "/sms/v2/services/"+keys.service_id+"/messages"
     message = method + " " + uri + "\n" + timestamp + "\n"+ access_key
     message = bytes(message, 'UTF-8')
     signingKey = base64.b64encode(hmac.new(secret_key, message, digestmod=hashlib.sha256).digest())
-    
+
     return signingKey
-    
+
 def photo(request):
     return render(request, 'photo.html')
 def movie(request):
@@ -192,11 +192,11 @@ def delete(request, id):
     lesson_info = Lesson_info.objects.get(id=lesson_user.lesson_info_id)
     lesson_info.use_num -= 1
     lesson_info.save()
-    
+
     try:
         live_ticket = Ticket.objects.get(user_id=user.id, lesson_type=lesson_info.lesson_type, is_use=True)
         live_ticket.coupon += 1
-        live_ticket.save() 
+        live_ticket.save()
 
     except Ticket.DoesNotExist:
         last_ticket = Ticket.objects.get(user_id=user.id, lesson_type=lesson_info.lesson_type).order_by('-expired_date')[:1]
@@ -212,7 +212,7 @@ def delete(request, id):
         ).save()
 
     #SMS 보내기
-    # send_sms(lesson_info, user, 'delete')
+    send_sms(lesson_info, user, 'delete')
 
     param_lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')
     param_lesson_user = param_lesson_user.filter(user_id=user.id)
@@ -227,9 +227,9 @@ def delete(request, id):
     }
 
     if request.user.is_superuser:
-        admin_lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')    
+        admin_lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')
         admin_lesson_user = admin_lesson_user.order_by('lesson_info.date', 'lesson_info.time')
-        
+
         return render(request, 'lessonList.html', {'lesson_user': admin_lesson_user})
     else:
         return render(request, 'accountsDetail.html', context)

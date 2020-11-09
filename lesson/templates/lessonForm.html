@@ -81,12 +81,11 @@
                 today += String(new Date().getDate()).length < 2 ? "0" + String(new Date().getDate()) : String(new Date().getDate());
 
                 if (selectDate >= today) {
-                    location.replace(`/lesson/get/${info.dateStr}`);
+                     location.replace('/lesson/get/'+info.dateStr);
                 } else {
                     alert('지난 날은 레슨을 신청하실 수 없습니다.');
                 }
             }
-
         });
 
         calendar.render();

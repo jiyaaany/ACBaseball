@@ -39,7 +39,7 @@
         function confirmApply(ele) {
             var result = confirm('레슨을 신청하시겠습니까?');
             if (result) {
-                location.replace(`/lesson/apply/${ ele.id }`);
+                location.replace('/lesson/apply/'+ ele.id);
             }
         }
     </script>
