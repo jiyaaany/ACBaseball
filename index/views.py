@@ -3,8 +3,9 @@ from cafe.models import Notice
 
 # Create your views here.
 def index(request):
-    notices = Notice.objects.all().order_by('-id')[:3]
-    return render(request, 'index.html', {'notices': notices})
+    notice = Notice.objects.order_by('-id')[:1].get()
+    print(notice)
+    return render(request, 'index.html', {'notice': notice})
 
 def time(request):
     return render(request, 'time.html')

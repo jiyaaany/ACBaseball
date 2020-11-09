@@ -4,7 +4,7 @@ from .models import *
 # Create your views here.
 def create(request):
     Notice(
-        title=request.POST['content'],
+        title=request.POST['content'][0:250],
         content=request.POST['content'],
     ).save()
 

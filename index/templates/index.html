@@ -32,7 +32,14 @@
 <body>
     {% block content %}
     <!-- slider_area_start -->
-    <div class="slider_area">
+    <div class="slider_area position-relative">
+        <div class="position-absolute" style="width: 80%; top: 15%; left: 50%; z-index: 999; transform: translate(-50%);">
+            <div class="card">
+                <div class="card-body">
+                    {{ notice.content }}
+                </div>
+            </div>
+        </div>
         <div class="slider_active owl-carousel">
             <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
                 <div class="container">
