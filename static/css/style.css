@@ -6408,6 +6408,11 @@ h6 {
   color: blue;
 }
 
+.btn-primary-outline {
+  background-color: transparent;
+  border-color: #ccc;
+}
+
 /* jiyeon */
 
 /*# sourceMappingURL=style.css.map */

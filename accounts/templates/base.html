@@ -31,180 +31,87 @@
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center no-gutters">
-                        <div class="col-xl-5 col-lg-5">
-                            <div class="main-menu d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation">
-                                        <li><a href="{% url 'cafe:list' %}">공지사항</a></li>
-                                        <li><a href="#">레슨장 소개<i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="{% url 'center' %}">인사말</a></li>
-                                                <li><a href="{% url 'way' %}">오시는길</a></li>
-                                                <li><a href="{% url 'facility' %}">시설 소개</a></li>
-                                            </ul>
+                        <div style="width: 100%;">
+                            <nav class="navbar navbar-expand-lg navbar-light">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse bg-light" id="navbarSupportedContent">
+                                    <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item dropdown active">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                레슨예약
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{% url 'lesson:form' %}">개인레슨</a>
+                                                <a class="dropdown-item" href="#">그룹레슨</a>
+                                                <a class="dropdown-item" href="{% url 'ticket:form' %}">이용권구매</a>
+                                            </div>
                                         </li>
-                                        <li><a href="{% url 'ticket:form' %}">성인 이용안내</a></li>
-                                        <li><a href="#">AC소식<i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="{% url 'lesson:photo' %}">레슨 사진</a></li>
-                                                <li><a href="{% url 'lesson:movie' %}">레슨 영상</a></li>
-                                            </ul>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                사회인야구
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{% url 'time' %}">이용안내</a>
+                                                <a class="dropdown-item" href="{% url 'fare' %}">요금표</a>
+                                                <a class="dropdown-item" href="#">사회인뉴스</a>
+                                            </div>
                                         </li>
-                                        <li><a href="{% url 'lesson:form' %}">레슨 예약</a></li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                어린이야구
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="#">이용안내</a>
+                                                <a class="dropdown-item" href="#">요금표</a>
+                                                <a class="dropdown-item" href="#">어린이소식</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                엘리트선수
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="#">이용안내</a>
+                                                <a class="dropdown-item" href="#">요금표</a>
+                                            </div>
+                                        </li>
                                     </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-2">
-                            <div class="logo-img">
-                                <a href="{% url 'index' %}">
-                                    <img src="{% static 'img/logo.png' %}" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-5 col-lg-5">
-                            <div class="book_room">
-                                <div class="main-menu">
-                                    <ul>
+                                    <div class="d-flex">
                                         {% if user.is_authenticated %}
-                                            {% if user.is_superuser %}
-                                                <li><a href="{% url 'lesson:list' %}" class="text-light">레슨관리</a></li>
-                                                <li><a href="{% url 'accounts:list' %}" class="text-light">회원관리</a></li>
-                                                <li><a href="{% url 'ticket:list' %}" class="text-light">이용권 구매현황</a></li>
-                                            {% else %}
-                                            {% if request.user_agent.is_pc %}
-                                                <li><a href="{% url 'ticket:form' %}" class="text-light">이용권 구매</a></li>
-                                                <li><a href="{% url 'lesson:form' %}" class="text-light">레슨 신청</a></li>
-                                            {% endif %}
-                                                <li><a href="{% url 'accounts:detail' user.id %}" class="text-light">My Page</a></li>
-                                            {% endif %}
-                                            <li><a href="{% url 'accounts:logout' %}" class="text-light">로그아웃</a></li>
+                                        {% if user.is_superuser %}
+                                            <li><a href="{% url 'lesson:list' %}" class="mr-2">레슨관리</a></li>
+                                            <li><a href="{% url 'accounts:list' %}" class="mr-2">회원관리</a></li>
+                                            <li><a href="{% url 'ticket:list' %}" class="mr-2">이용권 구매현황</a></li>
                                         {% else %}
-                                            <li>
-                                                <a href="{% url 'accounts:signup' %}" class="text-light">
-                                                    회원가입
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{% url 'accounts:login' %}" class="text-light">
-                                                    로그인
-                                                </a>
-                                            </li>
+                                            <li><a href="{% url 'ticket:form' %}" class="mr-2">이용권 구매</a></li>
+                                            <li><a href="{% url 'accounts:detail' user.id %}" class="mr-2">My Page</a></li>
                                         {% endif %}
-                                    </ul>
+                                        <li><a href="{% url 'accounts:logout' %}" class="mr-2">로그아웃</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'accounts:signup' %}" class="mr-2">회원가입</a></li>
+                                        <li><a href="{% url 'accounts:login' %}" class="mr-2">로그인</a></li>
+                                    {% endif %}
+                                    </div>
                                 </div>
-                                <div class="book_btn d-none d-xl-block">
-                                    <a class="#" href="#">+10 367 453 7382</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
+                            </nav>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    <!-- bradcam_area_end -->
-        <!-- <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid p-0">
-                    <div class="row align-items-center no-gutters">
-                        <div class="main-menu d-lg-block">
-                            <nav>
-                                <ul id="navigation">
-                                    <li><a href="{% url 'cafe:list' %}">항</a></li>
-                                    <li><a href="#">레슨장 소개<i class="ti-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="{% url 'center' %}">인사말</a></li>
-                                            <li><a href="{% url 'way' %}">오시는길</a></li>
-                                            <li><a href="{% url 'facility' %}">시설 소개</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="{% url 'ticket:form' %}">성인 이용안내</a></li>
-                                    <li><a href="#">AC 소식<i class="ti-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="{% url 'lesson:photo' %}">레슨 사진</a></li>
-                                            <li><a href="{% url 'lesson:movie' %}">레슨 영상</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="{% url 'lesson:form' %}">레슨 예약</a></li>
-                                    <li><a href="#">유소년 이용안내 (예정)</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="logo-img">
-                            <a href="{% url 'index' %}">
-                                <img src="{% static 'img/logo.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="book_room">
-                            <div class="socail_links">
-                                <ul>
-                                    {% if user.is_authenticated %}
-                                        {% if user.is_superuser %}
-                                            <li><a href="{% url 'lesson:list' %}">레슨관리</a></li>
-                                            <li><a href="{% url 'accounts:list' %}">회원관리</a></li>
-                                            <li><a href="{% url 'ticket:list' %}">이용권 구매현황</a></li>
-                                        {% else %}
-                                        {% if request.user_agent.is_pc %}
-                                            <li><a href="{% url 'ticket:form' %}">이용권 구매</a></li>
-                                            <!-- <li><a href="{% url 'index' %}">글 작성하기</a></li> 
-                                            <li><a href="{% url 'lesson:form' %}">레슨 신청</a></li>
-                                        {% endif %}
-                                            <li><a href="{% url 'accounts:detail' user.id %}">My Page</a></li>
-                                        {% endif %}
-                                        <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
-                                    {% else %}
-                                    <li>
-                                        <a href="{% url 'accounts:signup' %}">
-                                            회원가입
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'accounts:login' %}">
-                                            로그인
-                                        </a>
-                                    </li>
-                                    {% endif %}
-                                    {% if request.user_agent.is_pc %}
-                                    <li>
-                                        <a href="https://www.instagram.com/journey00_/">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.facebook.com/profile.php?id=100006499416112">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    {% endif %}
-                                </ul>
-                            </div>
-                            <div class="book_btn d-none d-xl-block">
-                                <a class="#" href="#">+10 3505 0076</a>
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-5 col-lg-5">
-
-                        </div>
-                        <div class="col-xl-2 col-lg-2">
-
-                        </div>
-                        <div class="col-xl-5 col-lg-5 d-none d-lg-block">
-
-                        </div>
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header> -->
     {% block content %}
     {% endblock %}
     <footer class="footer">
