@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Ticket
+from .models import Ticket, TicketLog
 from datetime import datetime,timedelta
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from ticket import keys
 import time
 import json
@@ -13,30 +14,40 @@ import requests
 
 # Create your views here.
 def form(request):
+    if request.user.is_anonymous :
+        messages.info(request, '로그인 후 이용해주세요.')
+        return redirect('accounts:login')
     return render(request, 'ticketForm.html')
 
 def create(request):
     User = get_user_model()
     user = User.objects.get(username=request.user)
 
-    Ticket(
-        lesson_type=request.GET['lesson_type'],
-        ticket_type=request.GET['ticket'],
-        user_id=user.id,
-        is_use = False,
-        coupon = request.GET['ticket'].split('coupon')[1],
+    TicketLog(
+        user_id = user.id,
+        ticket_type = request.GET['ticket']
     ).save()
 
-    send_sms(request.GET['ticket'].split('coupon')[1],user)
+    strCoupon = ''
+
+    for idx, lesson in enumerate(request.GET['ticket'].split(';')):
+        if lesson:
+            bTicketType = lesson[0] == 'P'
+            strCoupon += ('개인레슨 ' if bTicketType else '그룹레슨 ') + lesson[1:] + '회'
+
+            if idx != len(request.GET['ticket'].split(';'))-2:
+                strCoupon += ', '
+    
+    # send_sms(strCoupon, user)
 
     return render(request, 'ticketSuccess.html')
     
-def send_sms(coupon, user):
+def send_sms(strCoupon, user):
     timestamp = int(time.time() * 1000)
     timestamp = str(timestamp)
     signature = make_signature()
 
-    message = user.first_name+"님이 이용권을 구매하셨습니다.\n이용권: "+ coupon + "회"
+    message = user.first_name+"님이 이용권을 구매하셨습니다.\n이용권: "+ strCoupon
 
     headers = {
         'Content-Type': "application/json; charset=UTF-8",

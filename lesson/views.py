@@ -17,42 +17,29 @@ import hashlib
 import hmac
 
 # Create your views here.
-def form(request):
+def form(request, type):
     if request.user.is_anonymous :
         messages.info(request, '로그인 후 이용해주세요.')
         return redirect('accounts:login')
     else:
         user_model = get_user_model()
         user = user_model.objects.get(username=request.user)
-        if request.method == 'POST':
+        if request.method == 'GET':
             try:
-                ticket = Ticket.objects.get(user_id=user.id, lesson_type=request.POST['lesson_type'], is_use=1)
-                param = {'lesson_type':request.POST['lesson_type'], 'date':request.POST['date'], 'time':request.POST['time']}
-                lesson_info_object = Lesson_info.objects.get(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"), time=request.POST['time'])
-                lesson_info = Lesson_info.objects.filter(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"), time=request.POST['time'])
-                # lesson_time = Lesson_info.objects.get(lesson_type=request.POST['lesson_type'], date=request.POST['date'].replace(".","-"))
-                context = {
-                    'param': param,
-                    'lesson_info':lesson_info
-                    # 'lesson_time': lesson_time
-                }
-                if lesson_info_object.user_num == lesson_info_object.use_num:
-                    messages.warning(request, '레슨 신청이 마감되었습니다.')
-                return render(request, 'lessonForm.html', context)
+                Ticket.objects.get(user_id=user.id, lesson_type=type, is_use=1)
+
+                return render(request, 'lessonForm.html', { 'type': type })
             except Ticket.DoesNotExist:
                 messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
                 return render(request, 'ticketForm.html')
-            except Lesson_info.DoesNotExist:
-                messages.info(request, '신청 가능한 레슨이 없습니다.')
-                return render(request, 'lessonForm.html')
         else:
             try:
-                ticket = Ticket.objects.filter(user_id=user.id, is_use=1)
+                ticket = Ticket.objects.get(user_id=user.id, is_use=1)
                 return render(request, 'lessonForm.html')
             except Ticket.DoesNotExist:
                 messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
                 return render(request, 'ticketForm.html')
-
+        
 
 def list(request):
     today = datetime.today()
@@ -70,39 +57,37 @@ def apply(request, id):
     if lesson_info.use_num < lesson_info.user_num:
         lesson_info.use_num += 1
         lesson_info.save()
-    else:
-        messages.info(request, '해당 시간의 레슨은 신청할 수 없습니다. (정원초과)')
-        return render(request, 'lessonSuccess.html')
-
+    
     Lesson_user(
         lesson_info_id=id,
         user_id=user.id
     ).save()
 
-    if ticket.coupon > 0:
-        if ticket.started_date is None:
-            ticket.started_date = datetime.now()
-        if ticket.expired_date is None:
-            if ticket.ticket_type.split('coupon')[1] == '10':
-                ticket.expired_date = datetime.now() + relativedelta(months=2)
-            elif ticket.ticket_type.split('coupon')[1] == '20':
-                ticket.expired_date = datetime.now() + relativedelta(months=3)
-            elif ticket.ticket_type.split('coupon')[1] == '30':
-                ticket.expired_date = datetime.now() + relativedelta(months=6)
-            elif ticket.ticket_type.split('coupon')[1] == '50':
-                ticket.expired_date = datetime.now() + relativedelta(months=10)
-            elif ticket.ticket_type.split('coupon')[1] == '100':
-                ticket.expired_date = datetime.now() + relativedelta(months=12)
-            else:
-                ticket.expired_date = datetime.now() + relativedelta(months=2)
-        ticket.coupon -= 1
-        if ticket.coupon == 0:
-            ticket.is_use = False
-            ticket.expired_date = datetime.now()
-        ticket.save()
-    else:
-        messages.info(request, '이용권을 모두 사용하셨습니다.')
-        return render(request, 'ticketForm.html')
+    if ticket.started_date is None:
+        ticket.started_date = datetime.now()
+
+    if ticket.expired_date is None:
+        if ticket.ticket_type.split('coupon')[1] == '10':
+            ticket.expired_date = datetime.now() + relativedelta(months=2)
+        elif ticket.ticket_type.split('coupon')[1] == '20':
+            ticket.expired_date = datetime.now() + relativedelta(months=3)
+        elif ticket.ticket_type.split('coupon')[1] == '30':
+            ticket.expired_date = datetime.now() + relativedelta(months=6)
+        elif ticket.ticket_type.split('coupon')[1] == '50':
+            ticket.expired_date = datetime.now() + relativedelta(months=10)
+        elif ticket.ticket_type.split('coupon')[1] == '100':
+            ticket.expired_date = datetime.now() + relativedelta(months=12)
+        else:
+            ticket.expired_date = datetime.now() + relativedelta(months=2)
+
+    ticket.coupon -= 1
+
+
+    if ticket.coupon == 0:
+        ticket.is_use = False
+        ticket.expired_date = datetime.now()
+
+    ticket.save()
 
     #SMS 보내기
     send_sms(lesson_info, user, 'insert')
@@ -115,13 +100,6 @@ def apply(request, id):
     return render(request, 'lessonSuccess.html', param)
 
 def send_sms(lesson_info, user, type):
-    # url = "https://sens.apigw.ntruss.com"
-    # uri = "/sms/v2/services/" + keys.service_id + "/messages"
-    # api_url = url + uri
-    # timestamp = str(int(time.time() * 1000))
-    # access_key = keys.access_key
-    # string_to_sign = "POST " + uri + "\n" + timestamp + "\n" + access_key
-
     timestamp = int(time.time() * 1000)
     timestamp = str(timestamp)
     signature = make_signature()
@@ -240,7 +218,7 @@ def get(request, date):
     weekday = aWeekDay[dtDate.weekday()]
     lesson_day = dtDate.strftime('%m월 %d일') + '(' + weekday + ")"
 
-    lesson_infos = Lesson_info.objects.filter(date=date)
+    lesson_infos = Lesson_info.objects.filter(date=date, lesson_type=request.GET['type'])
     lesson_users = Lesson_user.objects.select_related('lesson_info').select_related('user')
     
     return render(request, 'lessonDetail.html', { 'lesson_day': lesson_day, 'lesson_infos': lesson_infos, 'lesson_users': lesson_users })
