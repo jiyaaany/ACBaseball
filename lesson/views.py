@@ -32,15 +32,7 @@ def form(request, type):
             except Ticket.DoesNotExist:
                 messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
                 return render(request, 'ticketForm.html')
-        else:
-            try:
-                ticket = Ticket.objects.get(user_id=user.id, is_use=1)
-                return render(request, 'lessonForm.html')
-            except Ticket.DoesNotExist:
-                messages.info(request, '사용 가능한 이용권이 없습니다. 먼저 이용권을 구매해주세요.')
-                return render(request, 'ticketForm.html')
         
-
 def list(request):
     today = datetime.today()
     lesson_user = Lesson_user.objects.select_related('lesson_info').select_related('user')
@@ -63,29 +55,12 @@ def apply(request, id):
         user_id=user.id
     ).save()
 
-    if ticket.started_date is None:
-        ticket.started_date = datetime.now()
-
-    if ticket.expired_date is None:
-        if ticket.ticket_type.split('coupon')[1] == '10':
-            ticket.expired_date = datetime.now() + relativedelta(months=2)
-        elif ticket.ticket_type.split('coupon')[1] == '20':
-            ticket.expired_date = datetime.now() + relativedelta(months=3)
-        elif ticket.ticket_type.split('coupon')[1] == '30':
-            ticket.expired_date = datetime.now() + relativedelta(months=6)
-        elif ticket.ticket_type.split('coupon')[1] == '50':
-            ticket.expired_date = datetime.now() + relativedelta(months=10)
-        elif ticket.ticket_type.split('coupon')[1] == '100':
-            ticket.expired_date = datetime.now() + relativedelta(months=12)
-        else:
-            ticket.expired_date = datetime.now() + relativedelta(months=2)
+    # started_date, expired_date 처리
 
     ticket.coupon -= 1
 
-
     if ticket.coupon == 0:
         ticket.is_use = False
-        ticket.expired_date = datetime.now()
 
     ticket.save()
 

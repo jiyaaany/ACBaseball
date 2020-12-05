@@ -38,45 +38,37 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">이름</th>
-                    <th scope="col">레슨 타입</th>
                     <th scope="col">이용권 종류</th>
                     <th scope="col">신청 일자</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for ticket in tickets %}
+                  {% for ticketLog in ticketLogs %}
                   <tr>
-                    <th scope="row">{{ticket.id}}</th>
+                    <th scope="row">{{ ticketLog.id }}</th>
 
-                    <td>{{ticket.user.first_name}}</td>
+                    <td>{{ ticketLog.user.first_name }}</td>
 
-                    {% if ticket.lesson_type == 'P' %}
-                      <td>개인</td>
-                    {% else %}
-                      <td>그룹</td>
+                    {% if ticketLog.ticket_type == 'P4;G2;' %}
+                      <td>개인레슨 4회 + 그룹레슨 2회</td>
+                    {% elif ticketLog.ticket_type == 'P8;G4;' %}
+                      <td>개인레슨 8회 + 그룹레슨 4회</td>
+                    {% elif ticketLog.ticket_type == 'G4' %}
+                      <td>월 4회 (주 1회)</td>
+                    {% elif ticketLog.ticket_type == 'G8' %}
+                      <td>월 8회 (주 2회)</td>
+                    {% elif ticketLog.ticket_type == 'G12' %}
+                      <td>월 12회 (주 3회)</td>
+                    {% elif ticketLog.ticket_type == 'G4;P2;' %}
+                      <td>그룹레슨 4회 + 개인레슨 2회</td>
+                    {% elif ticketLog.ticket_type == 'G8;P4;' %}
+                      <td>그룹레슨 8회 + 개인레슨 4회</td>
                     {% endif %}
-
-                    
-
-                    {% if ticket.ticket_type == 'coupon1' %}
-                      <td>1회</td>  
-                    {% elif ticket.ticket_type == 'coupon10' %}
-                      <td>10회</td>  
-                    {% elif ticket.ticket_type == 'coupon20' %}
-                      <td>20회</td>  
-                    {% elif ticket.ticket_type == 'coupon30' %}
-                      <td>30회</td>  
-                    {% elif ticket.ticket_type == 'coupon50' %}
-                      <td>50회</td>  
-                    {% elif ticket.ticket_type == 'coupon100' %}
-                      <td>100회</td> 
-                    {% endif %} 
-
-                    <td>{{ticket.created_date}}</td>
+                    <td>{{ ticketLog.reg_date|date:"Y-m-d" }}</td>
                     <td class="d-flex">
-                      <a href="{% url 'ticket:update' ticket.id %}"><button id="btn_accept" class="btn btn-primary">수락</button></a>
-                      <a href="{% url 'ticket:delete' ticket.id %}"><button id="btn_reject" class="btn btn-primary ml-2">거절</button></a>
+                      <a href="{% url 'ticket:update' ticketLog.id %}"><button class="btn btn-primary">수락</button></a>
+                      <a href="{% url 'ticket:delete' ticketLog.id %}"><button class="btn btn-primary ml-2">거절</button></a>
                     </td>
                   </tr>
                   {% endfor %}
