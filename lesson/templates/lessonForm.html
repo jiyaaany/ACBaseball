@@ -46,8 +46,14 @@
     <link rel="stylesheet" href="{% static 'packages/daygrid/main.css' %}" />
     <div class="container">
         <div class="container">
-            <!-- <form method="GET" action="{% url 'ticket:create' %}"> -->
-            <h1 class="signin-header">레슨 신청</h1>
+            
+            <h1 class="signin-header">
+                {% if type == 'G' %}
+                    그룹
+                {% else %}
+                    개인
+                {% endif %}
+                 레슨 신청</h1>
             <div id='calendar'></div>
         </div>
     </div>
@@ -71,6 +77,7 @@
             events: [
             ],
             dateClick: function(info) {
+                var type = '{{ type }}';
 
                 var selectDate = String(new Date(info.dateStr).getFullYear());
                 selectDate += String(new Date(info.dateStr).getMonth()+1).length < 2 ? "0" + String(new Date(info.dateStr).getMonth()+1) : String(new Date(info.dateStr).getMonth()+1);
@@ -81,7 +88,7 @@
                 today += String(new Date().getDate()).length < 2 ? "0" + String(new Date().getDate()) : String(new Date().getDate());
 
                 if (selectDate >= today) {
-                     location.replace('/lesson/get/'+info.dateStr);
+                     location.replace('/lesson/get/'+info.dateStr+'?type='+type);
                 } else {
                     alert('지난 날은 레슨을 신청하실 수 없습니다.');
                 }

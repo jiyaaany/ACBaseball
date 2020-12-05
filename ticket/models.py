@@ -14,3 +14,12 @@ class Ticket(models.Model):
 
     class Meta:
         db_table = "ticket"
+
+class TicketLog(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    ticket_type = models.CharField(max_length = 50)
+    reg_date = models.DateTimeField(auto_now_add=True)
+    is_use = models.BooleanField(default=True, blank=False)
+
+    class Meta:
+        db_table = "ticket_log"

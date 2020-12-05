@@ -52,11 +52,7 @@
                   {% for ticket in tickets %}  
                   <tr>
                     <th scope="row">{{ ticket.id }}</th>
-                    {% if ticket.lesson_type == 'person' %}
-                      <td>개인</td>
-                    {% else %}
-                      <td>그룹</td>
-                    {% endif %}
+                    {% "<td>개인</td>" if ticket.lesson_type == 'P' else <td>그룹</td> %}
                     <td>{{ ticket.coupon }}</td>
                     <td>{{ ticket.started_date }}</td>
                     <td>{{ ticket.expired_date }}</td>
@@ -81,7 +77,7 @@
                   {% for lesson in lessons %}  
                   <tr>
                     <th scope="row">{{ lesson.id }}</th>
-                    {% if lesson.lesson_info.lesson_type == 'person' %}
+                    {% if lesson.lesson_info.lesson_type == 'P' %}
                       <td>개인</td>
                     {% else %}
                       <td>그룹</td>
