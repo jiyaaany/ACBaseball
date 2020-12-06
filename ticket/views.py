@@ -122,7 +122,7 @@ def update(request, id):
         newTicket.is_use = False
         newTicket.save()
 
-        ticketLogs = TicketLog.objects.all()
+        ticketLogs = TicketLog.objects.filter(is_use=True).select_related('user').order_by('id')
 
         return render(request, 'ticketList.html', { 'ticketLogs': ticketLogs })
 
