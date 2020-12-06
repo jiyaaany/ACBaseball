@@ -52,7 +52,11 @@
                   {% for ticket in tickets %}  
                   <tr>
                     <th scope="row">{{ ticket.id }}</th>
-                    {% "<td>개인</td>" if ticket.lesson_type == 'P' else <td>그룹</td> %}
+                    {% if lesson.lesson_info.lesson_type == 'P' %}
+                      <td>개인</td>
+                    {% else %}
+                      <td>그룹</td>
+                    {% endif %}
                     <td>{{ ticket.coupon }}</td>
                     <td>{{ ticket.started_date }}</td>
                     <td>{{ ticket.expired_date }}</td>
