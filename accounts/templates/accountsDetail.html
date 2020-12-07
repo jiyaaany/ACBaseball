@@ -52,7 +52,7 @@
                   {% for ticket in tickets %}  
                   <tr>
                     <th scope="row">{{ ticket.id }}</th>
-                    {% if lesson.lesson_info.lesson_type == 'P' %}
+                    {% if ticket.lesson_type == 'P' %}
                       <td>개인</td>
                     {% else %}
                       <td>그룹</td>
