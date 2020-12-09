@@ -15,8 +15,21 @@ def fare(request):
 
 def center(request):
     return render(request, 'center.html')
+
 def way(request):
     return render(request, 'way.html')
 
 def facility(request):
     return render(request, 'facility.html')
+
+def kids_time(request):
+    return render(request, 'kidsTime.html')
+
+def kids_fare(request):
+    return render(request, 'kidsFare.html')
+
+def elite_time(request):
+    return render(request, 'eliteTime.html')
+
+def elite_fare(request):
+    return render(request, 'eliteFare.html')

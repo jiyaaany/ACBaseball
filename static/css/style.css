@@ -6415,4 +6415,8 @@ h6 {
 
 /* jiyeon */
 
+@media ( max-width: 768px ) {
+  .info-images { width: 100%; }
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -52,6 +52,7 @@
             
             <div class="d-flex">
                 <form method="GET" action="{% url 'ticket:create' %}">
+                    <h5>그룹레슨</h5>
                     <select class="selectpicker form-control" name="ticket">
                         <optgroup label="그룹">
                             <option value="G4;">월 4회 (주 1회)</option>
@@ -66,9 +67,10 @@
                 </form>
     
                 <form method="GET" action="{% url 'ticket:create' %}" class="ml-5">
+                    <h5>개인레슨</h5>
                     <select class="selectpicker form-control" name="ticket">
                         <optgroup label="개인">
-                            <option value="P5;">5회</option>        
+                            <option value="P5;">5회 (5주)</option>
                         </optgroup>
 
                         <option value="P4;G2;">개인레슨 4회 + 그룹레슨 2회</option>
