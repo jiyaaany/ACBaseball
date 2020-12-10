@@ -32,49 +32,20 @@
 <body>
     {% block content %}
     <!-- slider_area_start -->
-    <div class="slider_area position-relative">
+    <div class="slider_area">
         <img class="mt-5" src="{% static 'img/banner.gif' %}" alt="" style="width: 100%;">
-        <div class="position-absolute" style="width: 80%; top: 35%; left: 50%; z-index: 999; transform: translate(-50%);">
-            <div class="card">
-                <div class="card-body">
-                    {{ notice.content }}
-                </div>
+        <div class="card">
+            <div class="card-body">
+                {{ notice.content }}
             </div>
         </div>
-        <div class="slider_active owl-carousel">
-            <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-xl-9 col-md-9 col-md-12">
-                            <div class="slider_text text-center">
-                                <div class="deal_text">
-                                    <span>Let's Play</span>
-                                </div>
-                                <h3>AC <br>
-                                    Baseball</h3>
-                                <h4>Together</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single_slider  d-flex align-items-center slider_bg_2 overlay">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-xl-9 col-md-9 col-md-12">
-                            <div class="slider_text text-center">
-                                <div class="deal_text">
-                                    <span>Let's Play</span>
-                                </div>
-                                <h3>AC <br>
-                                    Baseball</h3>
-                                <h4>Together</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a href="https://cafe.naver.com/acbaseball" target="_blank">
+            <img class="mt-5" src="{% static 'img/banner1.gif' %}" alt="" style="width: 100%;">
+            <img class="mt-5" src="{% static 'img/banner2.gif' %}" alt="" style="width: 100%;">
+            <img class="mt-5" src="{% static 'img/banner4.gif' %}" alt="" style="width: 100%;">
+            <img class="mt-5" src="{% static 'img/banner5.gif' %}" alt="" style="width: 100%;">
+            <img class="mt-5" src="{% static 'img/banner6.gif' %}" alt="" style="width: 100%;">
+        </a>
     </div>
     <!-- slider_area_end -->
     
