@@ -27,9 +27,10 @@ sw
 <body>
     {% block content %}
     <!-- bradcam_area_start -->
-    <div class="bradcam_area breadcam_bg overlay">
-        <h3>TIME</h3>
-    </div>
+    <a href="{% url 'index' %}">
+        <div class="bradcam_area breadcam_bg overlay"></div>
+    </a>
+    
     <!-- bradcam_area_end -->
     <div class="content_area">
         <div class="container">

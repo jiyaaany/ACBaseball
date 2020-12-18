@@ -38,9 +38,10 @@
 <body>
     {% block content %}
     <!-- bradcam_area_start -->
-    <div class="bradcam_area breadcam_bg overlay">
-        <h3>BOOKING</h3>
-      </div>
+    <a href="{% url 'index' %}">
+        <div class="bradcam_area breadcam_bg overlay"></div>
+    </a>
+    
       <!-- bradcam_area_end -->
     <link href="{% static 'packages/core/main.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'packages/daygrid/main.css' %}" />

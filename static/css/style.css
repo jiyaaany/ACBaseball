@@ -2669,7 +2669,7 @@ h3 {
 
 /* line 1, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_bradcam.scss */
 .breadcam_bg {
-  background-image: url(../img/banner/bradcam.jpeg);
+  background-image: url(../img/banner/banner.gif);
 }
 
 /* line 4, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_bradcam.scss */
@@ -2684,23 +2684,29 @@ h3 {
 
 /* line 10, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_bradcam.scss */
 .bradcam_area {
+  margin-top: 90px;
   background-size: cover;
   background-position: center center;
   text-align: center;
-  padding: 215px 0 100px 0;
+  height: 150px;
+  /* padding: 215px 0 100px 0; */
 }
 
 @media (max-width: 767px) {
   /* line 10, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_bradcam.scss */
   .bradcam_area {
-    padding: 170px 0;
+    margin-top: 50px;
+    height: 120px;
+    /* padding: 170px 0; */
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   /* line 10, ../../Arafath/CL/December/229. Restaurant (Burger)/HTML/scss/_bradcam.scss */
   .bradcam_area {
-    padding: 150px 0 150px 0;
+    margin-top: 30px;
+    height: 140px;
+    /* padding: 150px 0 150px 0; */
   }
 }
 
